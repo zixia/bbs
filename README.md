@@ -1,5 +1,7 @@
 # bbs.zixia.net
 
+![大话西游紫霞BBS](docs/images/zixia-bbs-login.png)
+
 大话西游 zixia BBS
 
 ## Install
@@ -20,6 +22,12 @@ https://www.php.net/distributions/php-5.6.40.tar.gz
     --without-php=/bbs/src/php-4.4.4 --without-mysql --enable-ssh --enable-ssl \
     --with-openssl=/usr --with-libesmtp --enable-innbbsd CFLAGS="-O3 -g"
 ```
+
+## Screenshots
+
+![大话西游紫霞BBS](docs/images/zixia-bbs-menu.png)
+
+![大话西游紫霞BBS](docs/images/zixia-bbs-elite.png)
 
 ## History
 
@@ -55,11 +63,9 @@ The former name of bbs.zixia.net is 机械志途 which is a dorm bbs build by zi
 
 ## The Story
 
-> zixia(李卓桓),写于 2013 年 1 月 3 日星期四
+![大话西游：紫霞，齐天大圣孙悟空](docs/images/zixia-qitiandasheng.png)
 
 ### 我的大话西游紫霞情缘
-
-<telnet://bbs.zixia.net>
 
 1998年，一部周星驰电影《大话西游》由清华开始,在全国高校蔓延。
 
@@ -88,14 +94,15 @@ The former name of bbs.zixia.net is 机械志途 which is a dorm bbs build by zi
 我，可是你还是要跟我说你想要的。你真的想要吗？那你就拿去吧！你不是真的想要吧？难
 道你真的想要吗?......”
 
-> 下载[2013年1月4日 - 天马行空（周星驰、马云）大话西游紫霞BBS礼物册](docs/2013年1月4日 - 天马行空（周星驰、马云）大话西游紫霞BBS礼物册 - 李卓桓.pdf)
+> 李卓桓，摘自[天马行空（周星驰、马云）大话西游紫霞BBS礼物册](docs/大话西游紫霞BBS之天马行空2013.pdf)，2013年1月3日，星期四
+
+![大话西游：一生所爱](docs/images/zixia-film.webp)
 
 ## Maintainer
 
 [Huan](https://github.com/huan) [(zixia)](https://www.zixia.net), SYSOP of [大话西游 zixia BBS](https://bbs.zixia.net), <zixia@zixia.net>
 
-[![Profile of Huan LI (李卓桓) on StackOverflow](https://stackoverflow.com/users/flair/1
-123955.png)](https://stackoverflow.com/users/1123955/huan)
+[![Profile of Huan LI (李卓桓) on StackOverflow](https://stackoverflow.com/users/flair/1123955.png)](https://stackoverflow.com/users/1123955/huan)
 
 ## Copyright & License
 
