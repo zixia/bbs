@@ -1,8 +1,8 @@
-# bbs.zixia.net
+# 大话西游 zixia BBS
 
 ![大话西游紫霞BBS](docs/images/zixia-bbs-login.png)
 
-大话西游 zixia BBS
+<telnet://bbs.zixia.net>
 
 ## Install
 
