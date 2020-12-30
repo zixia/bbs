@@ -6,8 +6,8 @@
 
 ## Install
 
-```
-Debian / Jessie
+```sh
+# Debian / Jessie
 
 apt-get install -y \
     autoconf automake autotools-dev libltdl-dev libssl-dev libtool m4 cmake shtool zlib1g-dev sendmail libesmtp6 openssl bison byacc libgmp3-dev flex libxml2-dev libjpeg62-turbo-dev \
@@ -21,6 +21,10 @@ https://www.php.net/distributions/php-5.6.40.tar.gz
 ./configure --prefix=/bbs --enable-site=zixia --with-www=/bbs/www \
     --without-php=/bbs/src/php-4.4.4 --without-mysql --enable-ssh --enable-ssl \
     --with-openssl=/usr --with-libesmtp --enable-innbbsd CFLAGS="-O3 -g"
+```
+
+```sh
+luit -encoding GBK ssh zixia@newsmth.net
 ```
 
 ## Screenshots
