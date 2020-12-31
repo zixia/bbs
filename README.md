@@ -112,7 +112,7 @@ The former name of bbs.zixia.net is 机械志途 which is a dorm bbs build by zi
 
 ## Maintainer
 
-[Huan](https://github.com/huan) [(zixia)](https://www.zixia.net), SYSOP of [大话西游 zixia BBS](https://bbs.zixia.net), <zixia@zixia.net>
+[Huan](https://github.com/huan) [(zixia)](https://www.zixia.net), Creator & SYSOP of [大话西游 zixia BBS](https://bbs.zixia.net), <zixia@zixia.net>
 
 [![Profile of Huan LI (李卓桓) on StackOverflow](https://stackoverflow.com/users/flair/1123955.png)](https://stackoverflow.com/users/1123955/huan)
 
