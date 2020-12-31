@@ -105,7 +105,8 @@ The former name of bbs.zixia.net is 机械志途 which is a dorm bbs build by zi
 虽然你很有诚意地看着我，可是你还是要跟我说你想要的。你真的想要吗？
 那你就拿去吧！你不是真的想要吧？难道你真的想要吗？......”
 
-> 李卓桓，摘自赠送给周星驰和马云的[《天马行空（周星驰、马云）大话西游紫霞BBS礼物册》](docs/大话西游紫霞BBS之天马行空2013.pdf)，2013年1月3日，星期四
+> 李卓桓，写于赠送给周星驰和马云的[《天马行空（周星驰、马云）大话西游紫霞BBS礼物册》](docs/大话西游紫霞BBS之天马行空2013.pdf)  
+> 2013年1月3日，星期四
 
 ![天马行空（周星驰、马云、zixia）传媒大学](docs/images/mayun-zhouxingchi-zixia.webp)
 
