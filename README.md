@@ -2,8 +2,6 @@
 
 ![大话西游紫霞BBS](docs/images/zixia-bbs-login.png)
 
-<telnet://bbs.zixia.net>
-
 ## Install
 
 ```sh
@@ -25,9 +23,17 @@ https://www.php.net/distributions/php-5.6.40.tar.gz
 
 ## Usage
 
+The KBS sytem is using GBK for encoding so we need to use `luit` to convert GBK to UTF8
+
 ```sh
 luit -encoding GBK ssh zixia@bbs.zixia.net
+
+# or
+
+luit -encoding GBK telnet bbs.zixia.net
 ```
+
+And the web can be visited at <https://bbs.zixia.net>
 
 ## Screenshots
 
