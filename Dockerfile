@@ -23,8 +23,8 @@ RUN groupadd bbs --gid 80 \
     --home-dir /bbs \
     --uid 80 \
     --gid 80 \
-  && mkdir -p /bbs/src \
-    && chown -R bbs.bbs /bbs /var/www \
+  && mkdir -p /bbs/src /kbs \
+    && chown -R bbs.bbs /bbs /kbs /var/www \
     && chmod 700 /bbs \
   && echo done
 
@@ -53,6 +53,10 @@ RUN cd src/kbs_bbs \
   && make install \
   && echo done
 
+RUN mv /bbs/* /kbs
+
+VOLUME /bbs
+
 # Expose web & sshbbsd & bbsd
 EXPOSE 2222
 EXPOSE 2323
@@ -62,4 +66,6 @@ CMD ["bash"]
 
 # healthy check
 # HEALTHCHECK --interval=30s --timeout=5s CMD curl --fail http://localhost:80 || exit 1
+
+LABEL org.opencontainers.image.source="https://github.com/zixia/bbs.zixia.net"
 
