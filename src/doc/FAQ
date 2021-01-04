@@ -1,0 +1,123 @@
+$Id: FAQ,v 1.17 2006/03/06 19:37:22 atppp Exp $
+              kbsbbs 代码系统常见问题及解答 (kbsbbs FAQ)
+
+    本 FAQ 由 KBS 开发组 (http://dev.kcn.cn)负责维护，
+
+1. ChangeLog
+2004.5.29
+    flyriver 增加 FAQ 2.9
+2004.4.1
+    flyriver 增加 FAQ 2.7 和 2.8
+             修改 FAQ 2.6
+2004.1.25
+    flyriver 增加 FAQ 2.6
+2003.7.17
+    flyriver 增加 FAQ 2.5
+2003.6.5
+    flyriver v1.1
+    调整 FAQ 文章结构，新增四个 FAQ (2.2, 2.3, 2.4, 3.3)
+2002.9.16
+    KCN v1.0
+
+2. 编译和安装
+
+2.1. make install 的时候是否会覆盖原来的 bbs 数据？
+[答复]
+  make install 不会覆盖 bbs 数据。但请注意第一次安装新站的时候在执行
+  make install 之后请执行一次 make install-home 以便将初始 bbs 数据
+  （包括一些目录和 bbshome 目录中的数据）安装到指定位置。今后不要再
+  执行 make install-home 以免 bbs 数据被覆盖。
+
+2.2. 我启动 bbsd 时出现“can't lock pid file:var/bbsd.2500.pid”，怎么回事？
+[答复]
+  这个问题在比较老的 kbsbbs 版本里面会出现，是个 bug，但在最新的 kbsbbs
+  snapshot 版本里面已经被修正了。
+  解决办法如下：
+    a) 下载并安装最新的 kbsbbs snapshot，我们建议您这么做；
+    b) 如果您确实想用老的 kbsbbs 版本，那么可以参照以下步骤：
+         cd $(BBSHOME)
+         mkdir var
+    c) 如果已经存在 var/ 目录，确认它的属主为 bbs 用户；
+  然后再重新启动 bbsd 即可。
+
+2.3. 我的系统已经安装了 libesmtp，configure 是却还是提示出错，说什么
+  “checking for smtp_create_session in -lesmtp... no
+    configure: error: The libesmtp library required”
+  为什么会这样？
+[答复]
+  a) 检查一下您把 libesmtp 安装在 /usr 或 /usr/local 目录里面了，缺省情况下
+     configure 脚本只检查这两个目录。如果您用的是操作系统自带的 libesmtp 包，
+     那么安装目录一般都是在 /usr 或 /usr/local。对于 libesmtp 不是安装在 /usr
+     /usr/local 的情况，可以在 configure 的时候用 --with-libesmtp=DIR 指定
+     libesmtp 的安装目录；
+  b) 如果您的 libesmtp 包是自己编译安装的，您一定要在 configure libesmtp 的
+     加上 --disable-pthreads 参数。这个限制在未来的 kbsbbs 版本里会被去除。
+(注：在最新版的 kbsbbs 代码中已经没有这个限制了)
+  c) 如果 libesmtp 是用操作系统自带的软件包安装的，请检查一下您是否安装了相关
+     的开发包 (一般会有 libesmtp-devel 或 libesmtp-dev 之类的名字)。
+
+2.4. 我用的是 kbsbbs-1.0.1，configure 通过，但 make 时出错，提示：
+  “bbs_sendmail.c:5:22: libesmtp.h: No such file or directory”
+  后面还有很多出错信息，看样子都是跟 libesmtp 有关。
+[答复]
+  kbsbbs-1.0.1 及更早版本的 configure 脚本有 bug，检查 libesmtp 时没有给出
+  足够的出错信息，这个问题在最新的 kbsbbs snapshot 版本已经解决。建议您下载
+  并安装最新的 kbsbbs snapshot，或者参考问题 2.3 的答复。
+
+2.5. 我执行了 ./bbsd -p 23，但 telnet 127.0.0.1 时却告诉我：
+   “telnet: connect to address 127.0.0.1: Connection refused”。
+[答复]
+  用 bbs 用户无法启动 23 端口的服务，所以必须用 root 用户执行 ./bbsd -p 23，
+  才可能使 bbsd 成功运行于 23 端口。另外还要保证执行 ./bbsd -p 23 命令之前，
+  23 端口没有被占用。
+
+2.6. 编译 kbsbbs 都通过了，打开 bbsd 后，一连就断开。
+[答复]
+  a) 首先检查 .BOARDS 和 .PASSWDS 文件的权限是否正确，如果文件属主不是 bbs
+     用户，用 chown 进行修改。另外，要注意不能直接在 $BBSHOME 目录里面执行
+     chown -R bbs:bbs *，因为这样是不会修改到 .BOARDS 和 .PASSWDS 文件的。
+     而必须执行 chown -R bbs:bbs $BBSHOME。$BBSHOME 是指安装 bbs 的目录。
+  b) 检查 /etc/passwd 和 /etc/group 文件，看看 bbs 用户的 uid 和 gid 是否
+     与代码中定义的 BBSUID 和 BBSGID 宏一致(在 site.h 文件中)。
+
+2.7. 我从 cvs 下载的代码，用 autogen.sh 命令生成了 configure，但 make 时
+     却出错，提示：
+    “./../depcomp: ./../depcomp: No such file or directory”
+[答复]
+  请执行下面的命令，观察命令输出的版本信息。
+      automake --version
+      autoconf --version
+      libtool --version
+
+  然后对照 INSTALL 文件，看看 automake、autoconf 和 libtool 等程序的版本
+  是否符合要求。如果版本符合要求，但依然出错，可以试试把系统里现有的
+  automake、autoconf 和 libtool 等程序先卸载，再重新安装的办法。如果还不
+  行，请向别人求助。
+
+2.8. 编译 php 出错，说找不到 libxml2 或 freetype 之类的软件包。
+[答复]
+  如果 libxml2 等软件是用操作系统自带的软件包安装的，请检查一下您是否安装了
+  相关的开发包 (一般会有 libxml2-devel 或 libxml2-dev 之类的名字)。自己编译
+  安装的 libxml2 则不存在此问题。
+
+2.9. 我在 php.ini 里面加上了 extension=libphpbbslib.so，但还是无法使用 web
+    界面，不知道该怎么办？
+[答复]
+  a) 如果修改了 php.ini，需要重新启动 apache 才能生效(假设是 mod_php 的方式)。
+  b) 检查 php.ini 里面设定的 extension_dir 参数指向一个 apache 可以访问的目录，
+     而且该目录中有 libphpbbslib.so 这个文件，如果没有可以建一个符号链接。
+
+3. 管理维护
+
+3.1. 第一次注册SYSOP的时候，说 "抱歉, 由于某些系统原因, 无法注册新的帐号."
+[答复]
+  这个问题有个人问过我，处理如下
+    killall miscd
+    killall bbslogd
+  然后把共享内存区内存区清了（可以尝试使用 contrib/scripts/clearipc 脚本），
+  重新
+    miscd daemon
+    bbslogd就好了
+  不知道为啥。
+  另外一个可能的原因是防火墙拦掉了对 localhost 60001 端口的连接。将其打开。
+

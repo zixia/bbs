@@ -1,0 +1,34 @@
+$Id: README.cvs,v 1.11 2006/10/15 05:57:31 atppp Exp $
+KBS 开发组 CVS 服务器说明
+
+cvs服务器: cvs.kcn.cn
+用户：     bbsdev
+密码：     无
+CVSROOT:   :pserver:bbsdev@cvs.kcn.cn:/home/cvs
+
+目前水木代码主要有两个分支：
+v1_2：1.2 发布的代码，主要是对发布的 1.2 版本的补充和 bug fix
+MAIN：主分支，kbsbbs-2.0 的开发版本。
+
+相关的 modules:
+kbs_bbs:  主程序代码
+www2   :  Web 部分
+sshbbsd:  ssh 接口的代码
+bbshome:  一个 bbs 站点例子，特别注意这个模块是建新站必须的
+innbbsd:  转信程序
+
+其中 sshbbsd, bbshome, innbbsd 都应该在 kbs_bbs 目录下 checkout
+www2 应该在 web 主目录下 checkout，请参见相关安装文档。
+
+获得代码之后生成 configure 文件：在 kbs_bbs, sshbbsd 目录下分别运行
+    ./autogen.sh
+之后，就可以按照正常方式安装使用 BBS 代码了。
+
+
+
+获得主分支代码的命令参考：
+cvs -d :pserver:bbsdev@cvs.kcn.cn:/home/cvs checkout kbs_bbs;
+cd kbs_bbs;
+cvs checkout sshbbsd; cvs checkout bbshome; cvs checkout innbbsd;
+./autogen.sh
+cd sshbbsd; ./autogen.sh;

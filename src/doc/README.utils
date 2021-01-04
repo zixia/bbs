@@ -1,0 +1,143 @@
+$Id: README.utils,v 1.10 2006/04/07 05:58:15 atppp Exp $
+$2004.6.15   stiger@smth
+
+INSTALL只写了bbsd等主要程序的安装方法
+按照那个安装完本站后，你得到的只是一个最简单的电子公告板。
+
+其他的一些外部程序也是非常重要，所以单独用一个文件来说明。
+刚好我自己在转站，就是顺便了。
+
+==============================================================
+
+【一】    统计程序等
+
+ 1.) 十大热门话题
+  i) 普通方式的十大热门话题统计
+   代码: local_utl/poststat.c
+   系统:  $mkdir $BBSHOME/tmp/Xpost
+   crontab: 
+		59 * * * * $BBSHOME/bin/poststat 
+		59 23 * * * rm -f $BBSHOME/tmp/Xpost/*
+		59 23 * * * rm -f $BBSHOME/.post.X
+	注意: 每天的第一小时只能运行一次，否则新的会覆盖老的
+	
+	说明：如果0:00-0:59之内由于某些原因未能执行poststat，
+	      十大统计将会一直保留前一天的内容，此种情况下，
+	      请手动执行 $BBSHOME/bin/poststat refresh 以强制
+	      刷新十大。
+
+  ii)使用MYSQL的十大热门话题统计 
+   代码: local_utl/newpoststat.c
+   define:   #define NEWPOSTLOG
+             #define NEWPOSTSTAT
+   需要: #define HAVE_MYSQL_SMTH 1
+   crontab:
+        40 * * * * $BBSHOME/bin/newpoststat
+   mysql:
+        create table `postlog` (
+		 `id` int unsigned NOT NULL auto_increment,
+		 `userid` char(15) NOT NULL default '',
+		 `bname` char(31) NOT NULL default '',
+		 `title` char(81) NOT NULL default '',
+		 `time` timestamp NOT NULL,
+		 `threadid` int unsigned NOT NULL default '0',
+		 PRIMARY KEY (`id`),
+		 KEY userid (`userid`),
+		 KEY bname(`bname`, `threadid`),
+		 KEY timestamp(`time`)
+		) TYPE=MyISAM COMMENT='postlog';
+
+		create table `toplog` (
+		 `id` int unsigned NOT NULL auto_increment,
+		 `userid` char(15) NOT NULL default '',
+		 `bname` char(31) NOT NULL default '',
+		 `title` char(81) NOT NULL default '',
+		 `time` timestamp NOT NULL,
+		 `date` date NOT NULL,
+		 `topth` int NOT NULL default '1',
+		 `count` int NOT NULL default '0',
+		 `threadid` int unsigned NOT NULL default '0',
+		 PRIMARY KEY (`id`),
+		 KEY userid (`userid`),
+		 KEY bname(`bname`, `threadid`),
+		 KEY date(`date`),
+		 UNIQUE top (`date`,`topth`)
+		) TYPE=MyISAM COMMENT='toplog';
+   注意: postlog表过大时可以清空以前的发文记录，不影响
+
+   说明：同样可以用 $BBSHOME/bin/newpoststat refresh 强制刷新十大。
+
+ 2.) MYSQL 斑竹任期记录
+
+   define:   #define BMSLOG
+   需要: #define HAVE_MYSQL_SMTH 1 (这个在config.h里)
+   mysql:
+        CREATE TABLE bms (
+          `id` int(10) unsigned NOT NULL auto_increment,
+          board varchar(20) NOT NULL default '',
+          `in` timestamp(14) NOT NULL,
+          out int(11) NOT NULL default '3',
+          sysop varchar(15) default NULL,
+          memo varchar(255) default NULL,
+          userid varchar(15) NOT NULL default '',
+          KEY `id` (`id`),
+          KEY userid (userid),
+          KEY board (board)
+        ) TYPE=MyISAM COMMENT='斑竹任期记录表';
+
+
+【二】    游戏等
+
+ 1.) 推箱子
+   代码: service/worker
+   系统:  $mkdir $BBSHOME/game/worker
+          $cd $BBSHOME/game/worker
+		  $cp $BBSSRC/service/worker/worker.tar.gz .
+		  $tar zxvf worker.tar.gz
+   menu.ini:
+          @RunMBEM     0, 0, PERM_LOGINOK, "O@mod:game/so/libworker.so#worker_main",  "(O) 推箱子"
+
+ 2.) 穿梭
+   代码: service/bbsnet
+   menu.ini:
+		  @RunMBEM     10, 15, PERM_LOGINOK, "B@mod:service/libbbsnet.so#bbsnet_main", "(F) 网络穿梭"
+   $BBSHOME/etc/bbsnet.ini:
+          $BBSSRC/bbshome/etc/bbsnet.ini是范例
+
+ 3.) 星空战斗鸡
+   代码: service/pip
+   menu.ini:
+		  @RunMBEM     0, 0, PERM_LOGINOK, "A@mod:game/so/libpip.so#mod_default",  "(A) 星空战斗鸡"
+
+ 4.) 友情测试
+   代码: service/friendtest
+   menu.ini:
+		  @RunMBEM     0, 0, PERM_LOGINOK, "T@mod:service/libfriendtest.so#friend_main", "(T) 友谊测试"
+
+ 5.) 打字游戏
+   代码: service/tt.c
+   menu.ini:
+		  @RunMBEM     0, 0, PERM_LOGINOK, "G@mod:service/libtt.so#tt_main", "(G) 打字游戏"
+
+ 6.) 杀人游戏
+   代码: service/kill.c
+   menu.ini:
+		  @RunMBEM     0, 0, PERM_LOGINOK, "K@mod:service/libkiller.so#killer_main", "(K) 杀人游戏"
+
+ 7.) 开心词典
+   代码: service/quiz.c
+   menu.ini:
+		  @RunMBEM     0, 0, PERM_LOGINOK, "Q@mod:service/libquiz.so#quiz_main", "(Q) 开心词典"
+   mysql:
+          好像没有公开，呵呵，所以暂时sorry.
+
+ 8.) 俄罗斯方块
+   代码: service/tetris.c
+   menu.ini:
+		  @RunMBEM     0, 0, PERM_LOGINOK, "J@mod:service/libtetris.so#tetris_main", "(J) 俄罗斯方块"
+
+ 9.) 扫雷
+   代码: service/winmine.c
+   menu.ini:
+		  @RunMBEM     0, 0, PERM_LOGINOK, "T@mod:service/libwinmine.so#winmine_main", "(T) 扫雷"
+		  @RunMBEM     0, 0, PERM_LOGINOK, "T@mod:service/libwinmine.so#winmineg_main", "(T) 感应式扫雷"

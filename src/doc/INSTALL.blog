@@ -1,0 +1,98 @@
+$Id: INSTALL.blog,v 1.16 2006/11/23 10:27:09 atppp Exp $
+				KBS.Blog安装指南
+	
+    本文由 KBS 开发组 (http://dev.kcn.cn/) 系统维护组负责维护，介绍了
+KBS.Blog 在类 Unix 操作系统(包括 Linux、FreeBSD、Solaris 8/9 for X86/SPARC
+等)上的编译和安装。欢迎到水木社区 (http://newsmth.net/) 的 BBSMan_Dev 
+版参与 KBS.Blog 的讨论。
+    KBS.Blog是基于 kbsbbs 的 Blog 系统，同时兼顾telnet下个人文集的部分功能。
+
+0. ChangeLog
+2004.4.13
+  windinsn V1.1  更新
+2004.1.6
+  windinsn v1.0  初始版本
+  
+1. 快速安装
+    如果您已经安装好了支持web界面和MySQL数据库的 kbsbbs 系统，可按照下面方法快速
+将 KBS.Blog 加入到 kbsbbs 中，否则请阅读 3. 全新安装 部分。
+	1.1 确认您的系统支持 web，并带有MySQL数据库。
+	1.2 确认您的 kbsbbs 源文件中已含有 KBS.Blog 所需的代码，这里约定
+	    $BBSHOME为 kbsbbs 主目录;
+	    $WWWHOME为 web 主目录; 
+	    $BBSSRC为 kbsbbs 源文件所在的目录：
+	    $BBSSRC/libBBS/libpc.c
+	    $BBSSRC/src/personal_corp.c
+	    $WWWHOME/pc/ 目录
+	    如果缺少上述代码，请通过 cvs 更新您的kbsbbs或下载最新的kbsbbs-snapshot
+	    代码。
+	1.3 确认您的系统配置文件($BBSHOME/etc/sysconf.ini)中含有下面的字段:
+		MYSQLBLOGHOST       = ""    //MySQL服务器地址
+		MYSQLBLOGUSER       = ""    //MySQL用户名
+		MYSQLBLOGPASSWORD   = ""    //MySQL用户密码
+		MYSQLBLOGDATABASE = ""   //MySQL数据库名
+		MYSQLBLOGPORT       = ""    //MySQL数据库端口,默认为3306
+
+	1.4 在 MySQL 数据库中添加表。表结构见 DB.Blog.Structure.sql 文档。
+	1.5 配置 C 代码部分。具体方法为在站点配置文件 site.h 中加入下面的定义：
+		#define PERSONAL_CORP
+	1.6 升级： make ; make install ;
+	1.7 将 $WWWHOME/pc/pcconf.sample.php 复制为 $WWWHOME/pc/pcconf.php,
+	    编辑 pcconf.php 配置WWW下的BLOG参数。
+	1.8 完成快速安装。
+
+2. 系统需求
+    KBS.Blog 要求您的系统含有以下部分：
+    kbsbbs 1.1.1 版本或更高(支持web)；
+    MySQL 4.x 或更高版本；
+    apache 1.3.x 或 apache 2.x；
+    php 4.3.0 或更高版本；
+
+3. 全新安装
+    通过 cvs 获得最新的kbsbbs代码(方法见 README.cvs 文档)，或是从 http://cvs.kcn.cn
+下载 kbsbbs-snapshot 版本的kbsbbs代码。然后按照 INSTALL 文档进行安装。
+配置时需要注意下面三点：
+    1) 在 MySQL 中建立 KBS.Blog 所需要的数据库结构，见 DB.Blog.Strucure.sql 文档；
+    2) 必须选择支持 web 和 MySQL 数据库；
+    3) 站点配置文件中必须含有对 KBS.Blog 的定义。
+    请改动相应的配置文件：
+    在 $BBSSRC/site/***.h 中加入
+    	#define PERSONAL_CORP
+    这里 *** 表示 --enable-site 所指定的配置文件或目录。
+    4) 安装成功后,确认您的 $BBSHOME/etc/sysconf.ini 中含有下列字段:
+	MYSQLBLOGHOST       = ""    //MySQL服务器地址
+	MYSQLBLOGUSER       = ""    //MySQL用户名
+	MYSQLBLOGPASSWORD   = ""    //MySQL用户密码
+	MYSQLBLOGDATABASE = ""   //MySQL数据库名
+	MYSQLBLOGPORT       = ""    //MySQL数据库端口,默认为3306
+    5) 编辑 $WWWHOME/htdocs/pc/pcconf.php ,配置WWW下的BLOG参数。
+	$pcconfig["LIST"] :Blog首页上每页显示的用户数;
+	$pcconfig["HOME"] :BBS主目录,默认为BBS_HOME;
+	$pcconfig["BBSNAME"] :站点名称,默认为BBS_FULL_NAME;
+	$pcconfig["ETEMS"] :RSS输出的条目数;
+	$pcconfig["NEWS"] :统计全站最新文章/评论时显示的条目数;
+	$pcconfig["THEMLIST"] :按主题分类时每个主题显示的Blog数;
+	$pcconfig["SITE"] :站点的域名,在blog显示,RSS输出中均要用到;
+	$pcconfig["BOARD"] :Blog对应的版面名称,该版版主将默认为Blog管理员;
+	$pcconfig["APPBOARD"] :Blog申请公告版面;
+	$pcconfig["SEARCHFILTER"] :进行文章搜索时过滤掉的文字;
+	$pcconfig["SEARCHNUMBER"] :返回文章搜索结果时每页显示的条目数;
+	$pcconfig["SECTION"] :Blog分类方式;
+	$pcconfig["MINREGTIME"] :申请时要求的最短注册时间;
+	$pcconfig["ADMIN"] :管理员ID，设置后所有管理员都可以维护此Blog
+	$pcconfig["MINREGTIME"] ;申请Blog的最短注册时间，单位是月
+	pc_personal_domainname($userid)函数 :用户Blog的域名;
+
+4. telnet 下 blog 功能
+    menu.ini 合适的位置分别添加类似下面两条功能：
+
+@PcorpManage       0,0,   PERM_SYSOP,    "BlogManage", "T) Blog管理"
+@Pcorp             0,0,   PERM_BASIC,    "JPc",        "J) Blog"
+
+5. 其他
+
+    /pc/index.html 是 Blog 的首页导读，目前发布的 index.html 就是直接重定向到真正的首页
+导读页面 pcmain.php，但是由于 pcmain.php 运行速度极慢，强烈建议设置自动定时从 pcmain.php
+更新 index.html 文件，详情可以参考 INSTALL.mainpage 中自动更新 mainpage.html 的内容。
+    最新版本的 kbsbbs 已将 KBS.Blog 作为正式的组成部分，安装时可参考相应的INSTALL文档。
+KBS.Blog目前仍在开发和完善中，敬请关注水木社区 (http://newsmth.net/) BBSMan_Dev 版。
