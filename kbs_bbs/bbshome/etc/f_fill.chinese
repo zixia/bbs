@@ -1,0 +1,31 @@
+
+    ºÜ±§Ç¸£¬ÄúµÄ×¢²áµ¥²»·ûºÏÎÒÃÇµÄÒªÇó£¬ÎÒÃÇÎÞ·¨½ÓÊÕ¡£Ê§°ÜµÄÔ­Òò
+´ó¸ÅÊÇ£º[32mÊ¹ÓÃÁËÌ«¶àµÄÆ´Òô£¬»òÊÇÖÐÎÄÏÔÊ¾ÓÐÎÊÌâ¡£[mÈç¹ûÊÇÇ°Õß£¬
+ÇëÊ¹ÓÃÖÐÎÄÖØÐÂÌîÐ´×¢²áµ¥£»Èç¹ûÊÇºóÕß£¬Äú¿ÉÒÔ°´ÕÕÈçÏÂ²Ù×÷À´ÊÔÒ»ÊÔ£º
+
+ 1. ÇëÏÖÔÚÍ¬Ê±°´ÏÂ Ctrl ºÍ ] ÕâÁ½¸ö¼ü -- Äú½«¿´µ½ telnet> ÕâÑùµÄ
+    ×ÖÑù£»
+
+ 2. È»ºóÇëÊäÈë set bin Õâ 7 ¸ö×Ö·û£¨set ºÍ bin ¼äÓÐÒ»¸ö¿Õ¸ñ£©£¬
+    ÔÙ°´ Enter ¼ü£»
+
+ 3. ½ÓÏÂÀ´Èç¹ûÄú¿´µ½  Negotiating binary mode with remote host. 
+    ÕâÑùµÄ×ÖÑù£¬¾ÍÇëÔÙÍ¬Ê±°´ÏÂ Ctrl ºÍ L ÕâÁ½¸ö¼ü --ÕâÑù¾Í¿ÉÒÔÕý
+    È·µØÊäÈëÖÐÎÄÁË¡£
+
+    Èç¹ûÃ»ÓÐ¿´µ½ Negotiating binary mode with remote host. ÕâÑù
+    µÄ×ÖÑù£¬ÇëÊÔÊÔÔÚµÚ¶þ²½ÖÐÊäÈë toggle binary Õâ 13 ¸ö×Ö·û¡£
+
+    [33m×¢Òâ[m£ºÈç¹ûÄú²»ÊÇ´ÓÄúµÄ¼ÆËã»úÖ±½ÓÁ¬½Óµ½±¾Õ¾£¬¶øÊÇÏÈÁ¬½Óµ½Ò»Ð©
+ÆäËüµÄ¼ÆËã»ú£¬×îºó²Å×ªµ½±¾Õ¾£¬ÄÇÃ´ÄúÔÚÃ¿Á¬½ÓÒ»¸öÖÐ¼äµÄ¼ÆËã»úµÄÊ±
+ºò£¬¶¼ÐèÒª×÷ÉÏÊö´¦Àí¡£
+
+    ÇëÄú°´ÕÕÊ§°ÜµÄÔ­Òò¸ÄÕý£¬ÖØÐÂÌîÐ´×¢²áµ¥£¬¸ºÔðÈÏÖ¤µÄÕ¾Îñ»á¾¡¿ì
+ÈÃÄúÍ¨¹ýÉí·ÝÈ·ÈÏ¡£
+
+    Èç¹ûÄúÈÔÓÐÎÊÌâ£¬Ï£ÍûÄúÏÈ¿´¿´Announce°æ»òÕßÔÚ sysop°æ·¢ÎÄÑ¯ÎÊ£¬
+Ò²¿ÉÒÔ¸ø sysop·¢ÐÅÑ¯ÎÊ¡£ÓÐ¹Ø[32;1m×¢²áµ¥ÌîÐ´µÄ¾ßÌåÒªÇó²Î¼ûtest°æ¾«»ªÇø¡£[m
+
+    ÎÒÃÇ´ó¼Ò¶¼ºÜÆÚ´ýÄãÄÜ³É¹¦£¬¼ÓÓÍ¡­¡­
+
+                                        BBSË®Ä¾Çå»ªÕ¾Õ¾ÎñÎ¯Ô±»á
