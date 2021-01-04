@@ -1,4 +1,5 @@
 FROM php:5.3
+MAINTAINER "Huan <zixia@zixia.net>"
 LABEL maintainer="Huan <zixia@zixia.net>"
 
 # https://github.com/zixia/bbs.zixia.net.git
@@ -9,43 +10,53 @@ RUN apt-get update \
     libgmp3-dev \
     openssl \
     sendmail \
+    telnet \
     vim \
+  && echo done
 
 RUN a2enmod \
-  rewrite \
+    rewrite \
+  && echo done
 
 RUN groupadd bbs --gid 80 \
   && useradd bbs \
     --home-dir /bbs \
     --uid 80 \
     --gid 80 \
-  && mkdir /bbs \
-    && chown bbs.bbs /bbs \
-    && chmod 700 /bbs
+  && mkdir -p /bbs/src \
+    && chown -R bbs.bbs /bbs /var/www \
+    && chmod 700 /bbs \
+  && echo done
 
+COPY  --chown=bbs kbs_bbs /bbs/src/kbs_bbs
+WORKDIR /bbs
 USER bbs
 
-RUN cd kbs_bbs \
+ENV PHP_INCLUDE='/usr/local/include/php'
+ENV CFLAGS='-O3 -g'
+
+RUN cd src/kbs_bbs \
   && ./autogen.sh \
   && (cd sshbbsd && ./autogen.sh) \
   && ./configure \
     --prefix=/bbs \
     --enable-site=zixia \
     --with-www=/var/www \
-    --with-php=/usr/local/include/php \
+    --with-php="$PHP_INCLUDE"\
     --without-mysql \
     --enable-ssh \
     --enable-ssl \
     --with-openssl=/usr \
     --with-libesmtp \
-    CFLAGS="-O3 -g" \
+    CFLAGS="$CFLAGS" \
   && make \
-  && make install
+  && make install \
+  && echo done
 
 # Expose web & sshbbsd & bbsd
-EXPOSE 22
-EXPOSE 23
-EXPOSE 80
+EXPOSE 2222
+EXPOSE 2323
+EXPOSE 8080
 
 CMD ["bash"]
 
