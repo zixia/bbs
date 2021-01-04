@@ -88,7 +88,7 @@ New server online! (Thanks my good friend zxcvb for helping me to buy and setup 
 
 大话西游 zixia bbs landed!
 
-If you are interested where I built the zixia bbs, luckly there's a film [The Code: Story of Linux Documentary, 2001](https://www.imdb.com/title/tt0315417/) which contains around [10s video](https://youtu.be/zPt_e9Cdk08?t=2910) on YouTube shows my office in the student dorm(building 28, Tsinghua University). This place is also the "IDC" of where zixia bbs was hosting in.
+If you are interested in the place where I built the zixia bbs, luckly there's a Linux story telling documentary film [The Code, 2001](https://www.imdb.com/title/tt0315417/) which contains [10s video](https://youtu.be/zPt_e9Cdk08?t=2910) on YouTube shows my "office" in student dorm building 28, Tsinghua University. This place is also the "IDC" of where zixia bbs was hosted.
 
 ![zixia dorm 2001](docs/images/the-code-2001-zixia.webp)
 
