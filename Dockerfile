@@ -3,11 +3,15 @@ MAINTAINER "Huan <zixia@zixia.net>"
 LABEL maintainer="Huan <zixia@zixia.net>"
 LABEL org.opencontainers.image.source="https://github.com/zixia/bbs.zixia.net"
 
+# Huan(202101): ARG must after FROM, or it will lost in the context after FROM.
+ARG S6_OVERLAY_VERSION=1.22.1.0
+ARG S6_OVERLAY_MD5HASH=3060e2fdd92741ce38928150c0c0346a
+ARG PHP_INCLUDE='/usr/local/include/php'
+ARG CFLAGS='-O3 -g'
+
 EXPOSE 2222
 EXPOSE 2323
 EXPOSE 8080
-
-CMD ["bash"]
 
 # healthy check
 # HEALTHCHECK --interval=30s --timeout=5s CMD curl --fail http://localhost:80 || exit 1
@@ -16,15 +20,14 @@ RUN apt-get update \
   && apt-get install -y --force-yes \
     apache2 \
     libgmp3-dev \
+    openssh-server \
+    openssh-client \
     openssl \
     sendmail \
+    sudo \
     telnet \
     vim \
   && echo done
-
-# RUN a2enmod \
-#     rewrite \
-#   && echo done
 
 RUN groupadd --gid 80 bbs \
   && useradd \
@@ -35,14 +38,20 @@ RUN groupadd --gid 80 bbs \
   && mkdir -p /bbs/src /kbs \
     && chown -R bbs.bbs /bbs /kbs /var/www \
     && chmod 700 /bbs /kbs \
+  && echo "bbs ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
   && echo done
 
-COPY --chown=bbs kbs_bbs /bbs/src/kbs_bbs
+# S6 Overlay
+RUN curl -J -L -o /tmp/s6-overlay-amd64.tar.gz "https://github.com/just-containers/s6-overlay/releases/download/v$S6_OVERLAY_VERSION/s6-overlay-amd64.tar.gz" \
+  && echo -n "Checking md5sum... " \
+  && echo "$S6_OVERLAY_MD5HASH /tmp/s6-overlay-amd64.tar.gz" | md5sum -c - \
+  && tar xzf /tmp/s6-overlay-amd64.tar.gz -C / \
+  && rm /tmp/s6-overlay-amd64.tar.gz
+
+COPY --chown=bbs kbs_bbs/ /bbs/src/kbs_bbs
+
 WORKDIR /bbs
 USER bbs
-
-ENV PHP_INCLUDE='/usr/local/include/php'
-ENV CFLAGS='-O3 -g'
 
 RUN cd src/kbs_bbs \
   && ./autogen.sh \
@@ -72,3 +81,9 @@ RUN mv /bbs/* /kbs
 # Huan(202001): We have to put `VOLUME` after any operation to the `/bbs/` folder
 #   because after the `VOLUME` line, the folder will not be able to `chown` anymore.
 VOLUME /bbs
+
+USER root
+COPY bin/entrypoint.sh /
+COPY services.d/ /etc/services.d
+COPY VERSION /
+ENTRYPOINT /entrypoint.sh
