@@ -42,8 +42,8 @@ docker run \
   -p 2323:2323 \
   -p 8080:8080 \
   -v /data/bbs:/bbs \
-  -e VIRTUAL_HOST=bbs.zixia.net,*.bbs.zixia.net \
-  -e LETSENCRYPT_HOST=bbs.zixia.net \
+  -e VIRTUAL_HOST=bbs.zixia.net,*.bbs.zixia.net,wforum.zixia.net,*.wforum.zixia.net \
+  -e LETSENCRYPT_HOST=bbs.zixia.net,wforum.zixia.net \
   -e HTTPS_METHOD=noredirect \
   ghcr.io/zixia/bbs.zixia.net
 ```
