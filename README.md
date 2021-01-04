@@ -66,13 +66,13 @@ We are working on the data and try to rebuild the BBS system from the source cod
 
 ### v18 2018
 
-Two disk failure: The system data storage has two 750GB disk with ReiserFS and XFS, they have started losing data and emit lots of dmesg error messages.
+Data disks failure: The system data storage is using two 750GB disk with ReiserFS and XFS, they started emit lots of dmesg error messages at first, then the data start losing.
 
 System began offline since then.
 
 ### v16 2016
 
-Mainboard failure: The system can not boot until I send it to Zhongguancun and fix it by replacing a capacitance. (Thanks my good friend 王明欣!)
+Mainboard failure: The system can not boot until I bring it to Zhongguancun and fix it by replacing a capacitance. (Thanks my good friend 王明欣!)
 
 ### v13 (Jan 3, 2013)
 
@@ -88,7 +88,13 @@ New server online! (Thanks my good friend zxcvb for helping me to buy and setup 
 
 大话西游 zixia bbs landed!
 
-### v0.0.1 (1998)
+If you are interested where I built the zixia bbs, luckly there's a film [The Code: Story of Linux Documentary, 2001](https://www.imdb.com/title/tt0315417/) which contains around [10s video](https://youtu.be/zPt_e9Cdk08?t=2910) on YouTube shows my office in the student dorm(building 28, Tsinghua University). This place is also the "IDC" of where zixia bbs was hosting in.
+
+![zixia dorm 2001](docs/images/the-code-2001-zixia.webp)
+
+ > **The Code** is a Linux documentary from Finland made in 2001 on the birth of Linux and the open source community.
+
+### v0.0.1 (机械志途, 1998)
 
 The former name of bbs.zixia.net is 机械志途 which is a dorm bbs build by zixia at 1998 when he was studying at DME73 in Tsinghua University at buliding 28.
 
@@ -145,7 +151,7 @@ The zixia BBS source code is heavily based on the kbs_bbs system, I can always g
 
 ## Maintainer
 
-[Huan](https://github.com/huan) [(zixia)](https://www.zixia.net), Creator & SYSOP of [大话西游 zixia BBS](https://bbs.zixia.net), <zixia@zixia.net>
+[Huan](https://github.com/huan) [(zixia)](https://www.zixia.net), Creator of [大话西游 zixia BBS](https://bbs.zixia.net), ex-SYSOP of [SMTH BBS](https://www.newsmth.net/). <zixia@zixia.net>
 
 [![Profile of Huan LI (李卓桓) on StackOverflow](https://stackoverflow.com/users/flair/1123955.png)](https://stackoverflow.com/users/1123955/huan)
 
