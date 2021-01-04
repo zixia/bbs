@@ -4,33 +4,18 @@
 
 ## Requirements
 
-1. PHP 5.3.29
+1. Docker
+
+## Installation
+
+Learn how to build from kbs_bbs source for zixia bbs from the [Dockerfile](Dockerfile)
+
+### install-home
+
+If you are setting kbs_bbs from scratch, you need to initialize `bbshome/` so that your system can be started correctly.
 
 ```sh
-# PHP
-./configure  --disable-debug --disable-rpath --enable-inline-optimization --with-gd --with-freetype --with-png-dir --with-iconv --with-jpeg-dir --with-zlib --enable-shared --enable-sockets --enable-mbstring --without-mysql --enable-exif --enable-fpm --with-fpm-user=bbs --with-fpm-group=bbs --with-libdir=lib64 --with-mysqli --with-mcrypt
-
-# KBS
-./configure --prefix=/bbs --enable-site=zixia --with-www=/bbs/www     --with-php=/bbs/src/php-5.3.29 --without-mysql --enable-ssh --enable-ssl     --with-openssl=/usr --with-libesmtp CFLAGS="-O3 -g"
-```
-
-## Install
-
-```sh
-# Debian / Jessie
-
-apt-get install -y \
-    autoconf automake autotools-dev libltdl-dev libssl-dev libtool m4 cmake shtool zlib1g-dev sendmail libesmtp6 openssl bison byacc libgmp3-dev flex libxml2-dev libjpeg62-turbo-dev \
-    libpng12-dev libfreetype6-dev subversion libncurses5-dev g++ patch sendmail-bin libbsd-dev libgdbm-dev libexpat-dev uuid-dev gawk libsqlite3-dev libmcrypt-dev
-
-https://www.php.net/distributions/php-5.6.40.tar.gz
-./configure --with-apxs2=/bbs/www/bin/apxs --with-gd --with-png-dir --with-iconv \
-    --with-jpeg-dir --with-zlib --with-freetype-dir --enable-gd-native-ttf \
-    --with-mcrypt --enable-mbstring=all --enable-exif --prefix=/bbs/www
-
-./configure --prefix=/bbs --enable-site=zixia --with-www=/bbs/www \
-    --with-php=/bbs/src/php-5.6.40 --without-mysql --enable-ssh --enable-ssl \
-    --with-openssl=/usr --with-libesmtp CFLAGS="-O3 -g"
+make install-home
 ```
 
 ## Usage
@@ -46,6 +31,24 @@ luit -encoding GBK telnet bbs.zixia.net
 ```
 
 And the web can be visited at <https://bbs.zixia.net>
+
+Run zixia bbs docker with the following docker command:
+
+```sh
+docker run \
+  --rm \
+  -ti \
+  -p 2222:2222 \
+  -p 2323:2323 \
+  -p 8080:8080 \
+  -v /data/bbs:/bbs \
+  -e VIRTUAL_HOST=bbs.zixia.net,*.bbs.zixia.net \
+  -e LETSENCRYPT_HOST=bbs.zixia.net \
+  -e HTTPS_METHOD=noredirect \
+  ghcr.io/zixia/bbs.zixia.net
+```
+
+> Replace the port(2222, 2323, 8080), volume(/data/bbs)), environment variables with your value to fit your settings.
 
 ## Screenshots
 
