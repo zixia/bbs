@@ -57,6 +57,10 @@ And the web can be visited at <https://bbs.zixia.net>
 
 ### v20 Dec 30, 2020
 
+Good news! We found some backup segmentations which might be able to restore the most important parts of the bbs data.
+
+We are working on the data and try to rebuild the BBS system from the source code now.
+
 ### v18 2018
 
 Two disk failure: The system data storage has two 750GB disk with ReiserFS and XFS, they have started losing data and emit lots of dmesg error messages.
@@ -128,6 +132,14 @@ The former name of bbs.zixia.net is 机械志途 which is a dorm bbs build by zi
 
 ![天马行空（周星驰、马云、zixia）传媒大学](docs/images/mayun-zhouxingchi-zixia.webp)
 
+## Special Thanks
+
+I'd like to special thanks to my good friend KCN (周霖), who is the best technic SYSOP of SMTH BBS, author of kbs_bbs (which is the open-source project that the SMTH BBS builds on). He is also the co-founder & CTO of [狐狸金服(易搜贷)](https://huli.com).
+
+We joined the SMTH BBS SYSOP communittee on Oct 11, 1999 together, since then, the SMTH BBS source code envolves fast with the hard work from KCN with his great talent and experienced CS background.
+
+The zixia BBS source code is heavily based on the kbs_bbs system, I can always get help from him whenever I ran into troubles. zixia BBS can not run smoothly wthout his help. Thank you very much!
+
 ## Maintainer
 
 [Huan](https://github.com/huan) [(zixia)](https://www.zixia.net), Creator & SYSOP of [大话西游 zixia BBS](https://bbs.zixia.net), <zixia@zixia.net>
@@ -136,7 +148,7 @@ The former name of bbs.zixia.net is 机械志途 which is a dorm bbs build by zi
 
 ## Copyright & License
 
-- Code & Docs © 1998-2021 zixia.net
+- Code & Docs © 1999-2021 zixia.net
 - Code released under the GPLv3
 - Docs released under Creative Commons
 
