@@ -1,52 +1,52 @@
 #!/bin/bash
 #
-# Credit: Major@newsmth.net, Dec, 2020
+# Author: Major@newsmth.net, Dec, 2020
+# Maintainer: Huan <zixia@zixia.net>
 #
 
 set -e
+set -o pipefail
 
-BBSHOME="/data/service/bbs"
+KBS='/kbs'
+BBSHOME='/bbs'
 
-function sigterm_handler() {
+function sigterm_handler () {
   echo "SIGTERM signal received, try to gracefully shutdown all services..."
-  $BBSHOME/bin/miscd flush
-  /etc/init.d/httpd stop
+  $KBS/bin/miscd flush
+  # /etc/init.d/httpd stop
 }
 
-function bbs_home_not_exist() {
-  echo 'BBS home not exist, plz mount the bbs home first'
-  echo 'use -v /data/service/bbs:/data/service/bbs'
+function bbs_home_not_mounted () {
+  echo 'BBS home volume is not mounted, plz mount it first'
+  echo 'use `-v /data/bbs:/bbs`'
   exit 1
 }
 
+function start_bbs () {
+  "$KBS"/bin/miscd daemon
+  "$KBS"/bin/bbslogd
+  "$KBS"/bin/bbsd -p 2323
+  "$KBS"/bin/sshbbsd -p 2222
+  # cd /opt/lampp/bin
+  # "$KBS"/apachectl start
+
+  # $BBSHOME/rc.bbs start
+  #/etc/init.d/httpd start
+  # BBSD_APACHE=/usr/sbin/apachectl -D FOREGROUND &
+
+}
 trap "sigterm_handler; exit" TERM
 
-# check if bbs dir is exist
-if [[ ! -f "$BBSHOME"/bin/bbsd ]]; then
-  bbs_home_not_exist
+# check if bbs volume is mounted
+if [[ ! -f "$BBSHOME".PASSWD ]]; then
+  bbs_home_not_mounted
 fi
 
-
-# modify the config file
-echo "Preparing services..."
-if [[ -f $BBSHOME/docker/httpd.conf ]]; then
-  cat $BBSHOME/docker/httpd.conf > /etc/httpd/conf/httpd.conf
-fi
-
-if [[ -f $BBSHOME/docker/php.ini ]]; then
-  cat $BBSHOME/docker/php.ini > /etc/php.ini
-fi
-
-# Start service manager
-echo "Starting services..."
-$BBSHOME/rc.bbs start
-#/etc/init.d/httpd start
-echo "Starting services..."
-BBSD_APACHE=/usr/sbin/apachectl -D FOREGROUND &
+start_bbs
 
 # flush the miscd every hour
 while sleep 3600; do
-  $BBSHOME/bin/miscd flush
+  "$KBS"/bin/miscd flush
 done
 
 # Wait for SIGTERM

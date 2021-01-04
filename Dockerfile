@@ -18,11 +18,12 @@ RUN a2enmod \
     rewrite \
   && echo done
 
-RUN groupadd bbs --gid 80 \
-  && useradd bbs \
+RUN groupadd --gid 80 bbs \
+  && useradd \
     --home-dir /bbs \
-    --uid 80 \
     --gid 80 \
+    --uid 80 \
+    bbs \
   && mkdir -p /bbs/src /kbs \
     && chown -R bbs.bbs /bbs /kbs /var/www \
     && chmod 700 /bbs \

@@ -33,6 +33,14 @@ https://www.php.net/distributions/php-5.6.40.tar.gz
     --with-openssl=/usr --with-libesmtp CFLAGS="-O3 -g"
 ```
 
+### install-home
+
+If you are setting kbs_bbs from scratch, you need to initialize `bbshome/` so that your system can be started correctly.
+
+```sh
+make install-home
+```
+
 ## Usage
 
 The KBS sytem is using GBK for encoding so we need to use `luit` to convert GBK to UTF8
