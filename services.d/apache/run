@@ -1,0 +1,20 @@
+#!/usr/bin/with-contenv bash
+#
+# Author: Huan <zixia@zixia.net>
+#   https://github.com/zixia/bbs.zixia.net
+#   Jan 5, 2021
+#
+
+set -e
+
+if [[ $(id -u) = 0 ]]; then
+  exec s6-setuidgid bbs $0 "$@"
+fi
+
+while true; do
+  echo 'apachectl service mock'
+  sleep 60
+done
+
+apachectl -D FOREGROUND
+
