@@ -1,0 +1,37 @@
+$Id: README.local_utl,v 1.7 2006/05/03 21:15:26 atppp Exp $
+说明：
+    本文原文为 lotusin@smth 所写，从中可以了解 local_utl/ 目录下各个实用程序
+的作用，感谢 lotusin@smth 的贡献。把这个文件放入 kbsbbs 的源代码包仅仅是为了
+使用户对 local_utl/ 下的实用程序有一个了解而已。这个文件并非 kbsbbs 开发组的
+“官方”说明文档。
+
+
+usage.c         各板使用状况统计
+static.c        上站人数图、累计人数统计
+autoundeny.c    自动解封系统
+poststat.c      十大热门和祝福
+listonline.c    列出在线用户
+lazybm.c        版主上站考勤
+listMODE.c      列出在线用户状态
+statBM.c        版主工作情况
+statguy.c       积分排行等
+scanIP.c        列出同一IP用户
+Bhtml           Making articles in a board into HTML format and then compress 
+                them
+Xhtml.c         创建精华区打包文件
+autoclear.c     这个程序本意是用来删除过期的旧文章,当版内文章数超过‘规定’，
+                系统就会按照autoclear.c的默认设置或~bbs/etc/autoclear里设置的参
+                数来删除过期文章，顺便把那些尸体也给删除了. (如果只想删除尸体,
+                etc/autoclear不用设置.)
+
+gen_title       升级为kbs系统需要用到的，调整版面列表里面所有的版面文章都是文章
+                数为0的错误（其实不用也行，过段时间bbs系统会自动修复的）
+
+idx0Ann.c       制作精华区索引需要用到的程序，
+                脚本在 contrib/scripts/buildAnnIDX.sh。
+find_rm_lost    查找和删除丢失到board目录下的文章
+statkiller.c    杀手游戏的排行榜，可惜我执行的时候Segmentation fault :(
+fixdir.c        修复.DIR文件的错误
+showipdeny.c    查看因为短时间重复上站被封ID IP记录，修改里面的"surrender"为任
+                意已有的版名就可以用了
+

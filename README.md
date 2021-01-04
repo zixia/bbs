@@ -2,6 +2,18 @@
 
 ![大话西游紫霞BBS](docs/images/zixia-bbs-login.png)
 
+## Requirements
+
+1. PHP 5.3.29
+
+```sh
+# PHP
+./configure  --disable-debug --disable-rpath --enable-inline-optimization --with-gd --with-freetype --with-png-dir --with-iconv --with-jpeg-dir --with-zlib --enable-shared --enable-sockets --enable-mbstring --without-mysql --enable-exif --enable-fpm --with-fpm-user=bbs --with-fpm-group=bbs --with-libdir=lib64 --with-mysqli --with-mcrypt
+
+# KBS
+./configure --prefix=/bbs --enable-site=zixia --with-www=/bbs/www     --with-php=/bbs/src/php-5.3.29 --without-mysql --enable-ssh --enable-ssl     --with-openssl=/usr --with-libesmtp CFLAGS="-O3 -g"
+```
+
 ## Install
 
 ```sh

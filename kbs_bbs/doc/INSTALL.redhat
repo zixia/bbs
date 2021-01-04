@@ -1,0 +1,137 @@
+$Id: INSTALL.redhat,v 1.21 2006/11/21 06:07:53 atppp Exp $
+
+              kbsbbs 在 Fedora Core 4/5/6 上的安装指南
+
+    本文介绍如何在 Fedora Core 4/5/6 系统上安装 kbsbbs 系统。与以往
+安装方法不同的是，本文的方法尽可能使用 Fedora Core 自带的软件，例如
+apache 和 php 等。此外，本文的方法可使 kbsbbs 的 www 模块同时适合 
+apache 和 apache2。
+
+1. 需要的软件
+httpd                  必须
+php                    必须
+php-devel              必须
+php-gd                 必须
+php-xml或者php-domxml  必须
+zlib-devel             必须
+openssl-devel          必须
+gmp-devel              必须
+gd                     必须
+libesmtp-devel         可选
+
+mysql                  可选
+mysql-devel            可选
+mysql-server           可选
+php-mysql              可选
+     (以上 4 个只有当加入 mysql 支持的情况下才需要)
+
+autoconf               可选
+automake               可选
+libtool                可选
+     (以上 3 个只有使用 CVS 时才需要)
+
+以上软件都可以直接用 Fedora Core 光盘里的 rpm 安装。
+
+2. 编译安装 kbsbbs
+    下载 kbsbbs 的源代码有两种方法，一种是通过 cvs 方式获取，另一种是下载每
+日更新的 kbsbbs-snapshot 代码包。用 cvs 方式下载源代码请参考 doc/README.cvs
+文件。
+
+    注意在 site/ 子目录里面有名字为 fb2k-v2.c 和 fb2k-v2.h 的文件，这两个文件
+是站点定制文件，本文以这两个文件为例子进行讲解。注意验证 fb2k-v2.h 文件中 
+BBSUID 和 BBSGID 与本地系统的 bbs 用户的 uid gid 是否一致，如果不一致请调整到
+一致。可以使用命令 id bbs 来获得 bbs 用户的 uid gid。
+
+    然后进入 kbsbbs 的源代码目录，执行下列命令完成编译。
+        contrib/build-RH9.sh
+
+    编译成功后，用下列命令进行安装。
+        make install
+        make install-home
+
+    如果你使用的是 snapshot: 
+        将 kbsbbs 源代码目录 bbs2www/html 下的文件复制到 /var/www/html/。
+    如果你使用的是 cvs:
+        在 /var/www/ 目录下 checkout www2 模块，并将老的 /var/www/html 目录
+        改名，把 www2 目录改名为 html。
+
+    请注意今后修改代码编译后只需要执行 make install。make install-home 只需要
+首次安装的时候执行，以后再执行将会覆盖掉 BBS 的数据！
+
+3. 运行 kbsbbs
+    下面这些步骤有些需要 root 权限，为方便起见，直接切换到 root 用户。
+        cd /usr/local
+        chown -R bbs:bbs bbs
+        cd bbs/bin
+        ./miscd daemon
+        ./bbslogd
+        ./bbsd -p 23  (可以使用其他端口，如果用 23 的话，
+                       需要把系统的 telnet 服务关闭)
+        ./newpop3d (提供 POP3 方式取信)
+    
+    如果还想提供 ssh 方式的连接，请执行：
+        cp /etc/ssh/ssh_host_key /usr/local/bbs/etc/
+        chown bbs:bbs /usr/local/bbs/etc/ssh_host_key
+        touch /usr/local/bbs/etc/sshd_config
+    然后启动到 24 端口：
+        /usr/local/bbs/bin/sshbbsd -p 24
+    如果你希望使用 22 端口，则需要把系统 sshd 服务的端口换一下，修改
+    /etc/ssh/sshd_config 并重新启动 sshd 服务，修改 sshd 端口号属于高危
+    操作，请尽量在本地机器上执行。
+
+4. 初始化 kbsbbs
+    首先登录到 bbs 上，用 telnet 127.0.0.1 命令，如果 bbsd 不是运行在 23
+端口，则还需在命令行上提供端口参数。
+
+    连上 bbs 之后，首先输入 new 新建 SYSOP 帐号，一定要用全部大写的 SYSOP。
+然后再新建一个 guest 帐号(kbsbbs 的 www 模块要求系统中必须有 guest 用户)。
+
+    其他的管理功能比如开版操作可以用 SYSOP 帐号进行，可以参考 kbsbbs 中
+doc/ 目录的文件及 水木社区 (http://newsmth.net/) BBSMan_Dev 版的文章。
+
+5. 配置 apache 和 php
+    下面这些步骤同样用 root 用户进行。
+
+      cd /usr/lib/php4 ( 也可能是 /usr/lib/php/modules )
+      ln -s /var/www/libexec/bbs/libphpbbslib.so
+      目录 /usr/lib/php4 是 PHP 所配置的 extension_dir 路径，在不同的系统中
+可能会不一样，如果出现问题，请按照下面第 6 步的方法检查。
+
+    编辑 /etc/php.ini 文件，修改
+      short_open_tag = Off
+      magic_quotes_gpc = off
+    在 Dynamic Extension 之下添加
+      extension=libphpbbslib.so
+    找到 session.save_path 这一行，将对应的目录设置成 bbs 用户可写。
+
+    cd /etc/httpd/conf
+    编辑 httpd.conf 文件，修改参数
+      User bbs
+      Group bbs
+      AddDefaultCharset gb2312
+
+    最后使用 /etc/rc.d/init.d/httpd start 来启动 httpd 服务，如果原来已经
+启动了 httpd 服务，则可通过 /etc/rc.d/init.d/httpd restart 来重启 httpd 服务。
+
+6. 出现故障
+    下面的方法可用来检查 kbsbbs 的 phpbbslib extension 是否起作用。
+
+    编写 info.php 文件，置于 /var/www/html 目录中，内容如下：
+<?php
+        phpinfo();
+?>
+
+    然后在浏览器中输入地址 http://server_address/info.php，查看输出页面，
+如果页面中没有 kbs_bbs support enabled 这一行，说明 kbsbbs 的 phpbbslib
+extension 没有起作用。
+    注意查找  extension_dir 的配置路径，这个配置路径之下必须有一个
+libphpbbslib.so 文件符号连接到 /var/www/libexec/bbs/libphpbbslib.so。
+    另外 apache 的 error log 也可能有有用的信息：/var/log/httpd/error_log。
+
+    Fedore Core 默认将 httpd 服务加入 SELinux 保护，如果开启 SELinux 会导致
+libphpbbslib.so 加载失败（因为有依赖库在非标准路径）。
+
+    最后要把 info.php 文件删除。
+
+    其他问题请到水木社区 (newsmth.net) BBSMan_Dev 版讨论。
+

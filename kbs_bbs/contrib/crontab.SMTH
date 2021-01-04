@@ -1,0 +1,37 @@
+# (Cron version -- $Id: crontab.SMTH,v 1.21 2006/10/04 18:58:25 atppp Exp $)
+MAILTO=bbs
+BBSHOME=/home/bbs
+# 解开戒网
+15 12 * * * /home/bbs/bin/miscd giveup
+# 定时更新推荐文章
+8,18,28,38,48,58 * * * * /home/bbs/bin/genhot
+# 更新版主统计
+1 0 * * * /home/bbs/bin/statBM any update
+# 每小时记录每版在线人数和在线人数
+2 * * * * /home/bbs/bin/bonlinelog
+2 * * * * /home/bbs/bin/uonlinelog
+# 每天记录版面数据
+#10 0 * * * /home/bbs/bin/post_brdlog
+# 每小时记录在线人数用来生成图
+1,7,13,19,25,31,37,43,49,55 * * * * /home/bbs/bin/dayuserlog
+# 每天晚上把今天的平均在线写入allonline
+58 23 * * * /home/bbs/bin/alluserlog
+# 每小时 执行自动解封系统
+59 * * * * /home/bbs/bin/autoundeny
+# 每小时 43 分执行热门话题统计 -- 注意: 只能一小时一次, 不能再快
+43 * * * * /home/bbs/bin/poststat 
+# stiger:新的十大统计
+59 23 * * * rm -f /home/bbs/tmp/Xpost/*
+59 23 * * * rm -f /home/bbs/.post.X
+# 每个小时 59 分统计上站人数图
+59 * * * * /home/bbs/bin/static
+# 每天早上 4:33 统计各版使用状况0
+33 2 * * * /home/bbs/bin/usage
+# 每周一早上 3:33 , 将 BBS home 中超过七天的 chatlog & talklog 的档案砍掉
+33 3 * * 1 /usr/bin/find /home/bbs/home/ \! -ctime 7 \( -name chat_\* -o -name talk_\* \) | xargs rm -f
+# 每天5:30更新版主上站记录	period	2000-11-12
+30 5 * * * bin/lazybm > 0Announce/groups/system.faq/sys_discuss/lazybm.log 2>&1
+# 每周更新各版精华区目录	period	2000-11-22
+#45 5 * * * /home/bbs/bin/buildAnnIDX.sh
+# 每隔 1 分钟转信一次		czz	2001-10-30
+* * * * * ~bbs/innd/bbslink ~bbs > ~bbs/tmp/portnum 2>&1

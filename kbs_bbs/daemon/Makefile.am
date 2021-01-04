@@ -1,0 +1,14 @@
+bin_PROGRAMS = miscd newpop3d chatd bbslogd
+EXTRA_PROGRAMS = 
+miscd_SOURCES = miscd.c
+bbslogd_SOURCES = bbslogd.c
+newpop3d_SOURCES = newpop3.c
+chatd_SOURCES = station.c
+CC="@LIBTOOL@"
+CCLD="@CC@"
+LDADD=../libBBS/.libs/libBBS.a ../libsystem/.libs/libsystem.a
+#AM_LDFLAGS=-static
+AM_CFLAGS= -I$(top_srcdir)/src
+CLEANFILES=@EXTRA_CLEAN@
+newpop3d_CFLAGS=$(AM_CFLAGS) @OPENSSL_INC@
+newpop3d_LDADD=$(LDADD) @OPENSSL_LIBS@

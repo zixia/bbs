@@ -1,1 +1,12 @@
 .DS_Store
+
+t.*
+t/
+
+*.mak
+*.wrk
+.*.cf_prj
+.*.cf_fi
+.*.cf_di
+.TAGS.cf
+.*.base

@@ -1,0 +1,16 @@
+#  newsgroups                   board           news server
+#-----------------------------  --------------  -----------
+cnbbs.smth.dev		SMTHDev		smthnews
+cnbbs.smth.dev.cvs		SMTHDev,	null
+cn.bbs.admin			cnAdmin		cnnews
+cn.bbs.admin.announce		cnAnnounce	null
+cn.bbs.admin.lists		cnLists		null
+cn.bbs.admin.lists.tv		cnTV		null
+cn.bbs.admin.lists.weather	Weather		null
+cn.bbs.admin.test		cnTest		null
+cn.bbs.admin.installbbs		InstallBBS	cnnews
+cnbbs.admin.manager		cnBM		cnnews
+#tw.bbs.admin			twAdmin		null
+#tw.bbs.admin.installbbs		twInstallBBS	cnnews
+#fa.linux.kernel			LKML		null
+#mailing.unix.bugtraq		BugTraq		null
