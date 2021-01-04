@@ -1,0 +1,224 @@
+BBSINCLUDE=""
+define([ADDINC],[if test "$1" != "/usr/include"; then
+BBSINCLUDE="$BBSINCLUDE -I$1"
+fi])
+AC_ARG_WITH(zlib,
+[  --with-zlib[=DIR]
+                          Include ZLIB support (requires zlib >= 1.0.9).],
+ZLIB_DIR="$withval", ZLIB_DIR="yes")
+
+if test "$ZLIB_DIR" != "no"; then
+  if test -f $ZLIB_DIR/include/zlib.h; then
+      ZLIB_INC=$ZLIB_DIR/include
+  else
+    for i in /usr/local /usr ; do
+      if test -f $i/include/zlib/zlib.h; then
+        ZLIB_DIR=$i
+        ZLIB_INC=$i/include/zlib
+      elif test -f $i/include/zlib.h; then
+        ZLIB_DIR=$i
+        ZLIB_INC=$i/include
+      fi
+    done
+  fi
+  
+  if test -z "$ZLIB_DIR"; then
+    AC_MSG_ERROR(Cannot find libz)
+  fi
+
+  AC_CHECK_LIB(z, gzgets, [
+    AC_DEFINE(HAVE_ZLIB,1,[ ])
+  ],[
+    AC_MSG_ERROR(ZLIB extension requires zlib >= 1.0.9)
+  ])
+  
+  ZLIB_LIBS="-L$ZLIB_DIR/lib64 -lz"
+  ADDINC($ZLIB_INC)
+else
+  AC_MSG_ERROR(Need zlib support)
+fi
+
+LIBS="$LIBS $ZLIB_LIBS"
+
+AC_ARG_WITH(mysql,
+[  --with-mysql[=DIR]
+                          Include MySQL support (online dictionary, quiz game 
+                          required this).],
+MYSQL_DIR="$withval", MYSQL_DIR="yes")
+
+if test "$MYSQL_DIR" != "no"; then
+  if test -f $MYSQL_DIR/include/mysql/mysql.h; then
+      MYSQL_INC=$MYSQL_DIR/include/mysql
+  else
+    for i in /usr/local /usr ; do
+      if test -f $i/include/mysql/mysql.h; then
+        MYSQL_DIR=$i
+        MYSQL_INC=$i/include/mysql
+      elif test -f $i/include/mysql.h; then
+        MYSQL_DIR=$i
+        MYSQL_INC=$i/include
+      elif test -f $i/mysql/include/mysql.h; then
+        MYSQL_DIR=$i/mysql
+        MYSQL_INC=$i/mysql/include
+      fi
+    done
+  fi
+  
+  if test -z "$MYSQL_DIR"; then
+    MYSQL_NOTFOUND=yes
+  fi
+
+  if test "$MYSQL_NOTFOUND" != "yes"; then
+    SAVE_LIBS=$LIBS
+    LIBS="$LIBS -L$MYSQL_DIR/lib64"
+    AC_CHECK_LIB(mysqlclient, mysql_real_connect, [
+      AC_DEFINE(HAVE_MYSQL_SMTH,1,[Enable MySQL support])
+    ],[
+  	AC_MSG_ERROR(The MYSQL library not found)
+    ],[ -L$MYSQL_DIR/lib64/mysql ])
+    LIBS=$SAVE_LIBS
+
+    MYSQL_LIBS="-L$MYSQL_DIR/lib64 -L$MYSQL_DIR/lib64/mysql -lmysqlclient"
+    ADDINC($MYSQL_INC)
+    LIBS="$LIBS $MYSQL_LIBS"
+  fi
+fi
+
+# Check pthread support
+AC_ARG_WITH(pthread,
+[  --with-pthread[=DIR]
+                          Specify POSIX thread library directory.],
+PTHREAD_DIR="$withval", PTHREAD_DIR="yes")
+if test "$PTHREAD_DIR" != "no"; then
+  if test "$PTHREAD_DIR" != "yes"; then
+    if test -f $PTHREAD_DIR/include/pthread.h; then
+      PTHREAD_INC=$PTHREAD_DIR/include
+    fi
+  else
+    for i in /usr/local /usr ; do
+      if test -f $i/include/pthread.h; then
+        PTHREAD_DIR=$i
+        PTHREAD_INC=$i/include
+      fi
+    done
+  fi
+ 
+  if test "x$PTHREAD_INC" != "x"; then
+    SAVE_LIBS=$LIBS
+    LIBS="$LIBS -L$PTHREAD_DIR/lib64"
+    AC_CHECK_LIB([pthread], [pthread_create], [
+      PTHREAD_LIBS="-L$PTHREAD_DIR/lib64 -lpthread"
+      LIBS="$SAVE_LIBS $PTHREAD_LIBS"
+    ],[
+      LIBS=$SAVE_LIBS
+    ])
+  fi
+fi
+
+# Check libesmtp support.
+AC_ARG_WITH(libesmtp,
+[  --with-libesmtp[=DIR]
+                          Specify libesmtp library directory.],
+LIBESMTP_DIR="$withval", LIBESMTP_DIR="yes")
+if test "$LIBESMTP_DIR" != "no"; then
+  if test "$LIBESMTP_DIR" != "yes"; then
+    if test -f $LIBESMTP_DIR/include/libesmtp.h; then
+        LIBESMTP_INC=$LIBESMTP_DIR/include
+    fi
+  else
+    for i in /usr/local /usr ; do
+      if test -f $i/include/libesmtp.h; then
+        LIBESMTP_DIR=$i
+        LIBESMTP_INC=$i/include
+      fi
+    done
+  fi
+ 
+  if test "x$LIBESMTP_INC" != "x"; then
+    SAVE_LIBS=$LIBS
+    LIBS="$LIBS -L$LIBESMTP_DIR/lib64"
+    AC_CHECK_LIB([esmtp], [smtp_create_session], [
+      AC_DEFINE(HAVE_LIBESMTP,1,[ ])
+      ADDINC($LIBESMTP_INC)
+      LIBESMTP_LIBS="-L$LIBESMTP_DIR/lib64 -lesmtp"
+      LIBS="$SAVE_LIBS $LIBESMTP_LIBS"
+    ],[
+      AC_MSG_ERROR(Cannot find libesmtp library)
+    ])
+  else
+    BBS_PROG_SENDMAIL
+  fi
+else
+  BBS_PROG_SENDMAIL
+fi
+
+AH_TEMPLATE([USE_SSL],
+[Define to use openssl library])
+
+AC_MSG_CHECKING(OpenSSL)
+AC_ARG_WITH(openssl,
+[  --with-openssl[=path]     Build with OpenSSL [yes|no|path].
+        ],
+    use_openssl="$withval", use_openssl="no")
+case "$use_openssl" in
+        no)
+                AC_MSG_RESULT(no)
+                DST_OPENSSL_INC=""
+                USE_OPENSSL=""
+                ;;
+        *)
+            # User did not specify a path - guess it
+            openssldirs="/usr /usr/local /usr/local/ssl /usr/pkg"
+            for d in $openssldirs
+            do
+                  if test -f $d/include/openssl/opensslv.h
+                  then
+                      use_openssl=$d
+                      break
+                  fi
+            done
+            if test "$use_openssl" = "yes"
+            then
+                  AC_MSG_RESULT(not found)
+                  AC_MSG_ERROR(
+[OpenSSL was not found in any of $openssldirs; use --with-openssl=/path])
+            fi
+
+            AC_DEFINE(USE_SSL)
+            ADDINC($use_openssl/include)
+            OPENSSL_LIBS="-L$use_openssl/lib64 -lcrypto -lssl"
+            AC_MSG_RESULT(using openssl from $use_openssl/lib and $use_openssl/include)
+
+            AC_MSG_CHECKING(OpenSSL library version)
+            saved_cflags="$CFLAGS"
+            saved_libs="$LIBS"
+            CFLAGS="$CFLAGS $DST_OPENSSL_INC"
+            LIBS="$LIBS $DNS_OPENSSL_LIBS"
+            AC_TRY_RUN([
+#include <stdio.h>
+#include <openssl/opensslv.h>
+int main() {
+        printf("\n\nFound   OPENSSL_VERSION_NUMBER %#010x\n",
+                OPENSSL_VERSION_NUMBER);
+        return (0);
+}
+],
+            [AC_MSG_RESULT(ok)],
+            [AC_MSG_RESULT(not compatible)],
+            [AC_MSG_RESULT(assuming target platform has compatible version)])
+            CFLAGS="$saved_cflags"
+            LIBS="$saved_libs"
+            ;;
+esac
+
+AC_SUBST(OPENSSL_LIBS)
+
+if test "$OPENSSL_INC" = "/usr/include"; then
+OPENSSL_INC=""
+fi
+AC_SUBST(OPENSSL_INC)
+
+CFLAGS="$CFLAGS $BBSINCLUDE"
+AC_CHECK_LIB([bsd], [vfork], [LIBS="$LIBS -lbsd"])
+AC_CHECK_LIB([dl], [dlopen], [LIBS="$LIBS -ldl"])
+AC_CHECK_LIB([ltdl], [lt_dlopen], [LIBS="$LIBS -lltdl"])
