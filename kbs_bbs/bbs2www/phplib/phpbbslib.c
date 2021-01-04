@@ -2,49 +2,49 @@
 #include "ext/standard/info.h"
 
 #if PHP_MAJOR_VERSION == 5
-static
+//static
      ZEND_BEGIN_ARG_INFO(one_arg_force_ref_1, 0)
              ZEND_ARG_PASS_INFO(1)
      ZEND_END_ARG_INFO();
-static
+//static
      ZEND_BEGIN_ARG_INFO(two_arg_force_ref_01, 0)
              ZEND_ARG_PASS_INFO(0)
              ZEND_ARG_PASS_INFO(1)
      ZEND_END_ARG_INFO();
-static
+//static
      ZEND_BEGIN_ARG_INFO(third_arg_force_ref_1111, 0)
              ZEND_ARG_PASS_INFO(1)
              ZEND_ARG_PASS_INFO(1)
              ZEND_ARG_PASS_INFO(1)
              ZEND_ARG_PASS_INFO(1)
      ZEND_END_ARG_INFO();
-static
+//static
      ZEND_BEGIN_ARG_INFO(third_arg_force_ref_011, 0)
              ZEND_ARG_PASS_INFO(0)
              ZEND_ARG_PASS_INFO(1)
              ZEND_ARG_PASS_INFO(1)
      ZEND_END_ARG_INFO();
-static
+//static
      ZEND_BEGIN_ARG_INFO(fourth_arg_force_ref_0001, 0)
              ZEND_ARG_PASS_INFO(0)
              ZEND_ARG_PASS_INFO(0)
              ZEND_ARG_PASS_INFO(0)
              ZEND_ARG_PASS_INFO(1)
      ZEND_END_ARG_INFO();
-static
+//static
      ZEND_BEGIN_ARG_INFO(fourth_arg_force_ref_0111, 0)
              ZEND_ARG_PASS_INFO(0)
              ZEND_ARG_PASS_INFO(1)
              ZEND_ARG_PASS_INFO(1)
              ZEND_ARG_PASS_INFO(1)
      ZEND_END_ARG_INFO();
-static
+//static
      ZEND_BEGIN_ARG_INFO(third_arg_force_ref_001, 0)
              ZEND_ARG_PASS_INFO(0)
              ZEND_ARG_PASS_INFO(0)
              ZEND_ARG_PASS_INFO(1)
      ZEND_END_ARG_INFO();
-static
+//static
      ZEND_BEGIN_ARG_INFO(fifth_arg_force_ref_00011, 0)
              ZEND_ARG_PASS_INFO(0)
              ZEND_ARG_PASS_INFO(0)
