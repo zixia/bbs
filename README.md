@@ -12,25 +12,15 @@ Learn how to build from `kbs_bbs` source for zixia bbs from the [Dockerfile](Doc
 
 ### install-home
 
-If you are setting `kbs_bbs` from scratch, you need to initialize `bbshome/` so that your system can be started correctly.
+If you are starting `kbs_bbs` from scratch for the first time, you need to initialize `bbshome/` so that your system can be started correctly.
+
+> WARNING: all your existing bbs data will lost after this operation!
 
 ```sh
 make install-home
 ```
 
 ## Usage
-
-The KBS sytem is using GBK for encoding so we need to use `luit` to convert GBK to UTF8
-
-```sh
-luit -encoding GBK ssh zixia@bbs.zixia.net
-
-# or
-
-luit -encoding GBK telnet bbs.zixia.net
-```
-
-And the web can be visited at <https://bbs.zixia.net>
 
 Run zixia bbs docker with the following docker command:
 
@@ -49,6 +39,22 @@ docker run \
 ```
 
 > Replace the port(2222, 2323, 8080), volume(/data/bbs)), environment variables with your value to fit your settings.
+
+### Term
+
+The KBS sytem is using GBK for encoding so we need to use `luit` to convert GBK to UTF8
+
+```sh
+luit -encoding GBK ssh zixia@bbs.zixia.net
+
+# or
+
+luit -encoding GBK telnet bbs.zixia.net
+```
+
+### Web
+
+And the web can be visited at <https://bbs.zixia.net>
 
 ## Screenshots
 
