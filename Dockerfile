@@ -88,7 +88,6 @@ RUN mv /bbs/* /kbs
 VOLUME /bbs
 
 USER root
-COPY bin/entrypoint.sh /
 COPY root/ /
 COPY VERSION /
 ENTRYPOINT /entrypoint.sh

@@ -1,0 +1,21 @@
+#!/usr/bin/with-contenv bash
+
+set -e
+
+VOLUME_SSH_FOLDER=/bbs/root/etc/ssh
+CONTAINER_SSH_FOLDER=/etc/ssh
+
+echo "Create the PrivSep empty dir if necessary..."
+if [ ! -d /run/sshd ]; then
+    mkdir /run/sshd
+    chmod 0755 /run/sshd
+fi
+
+echo "Linking $VOLUME_SSH_FOLDER $CONTAINER_SSH_FOLDER ..."
+if [ -d "$VOLUME_SSH_FOLDER" ]; then
+  rm -rf "$CONTAINER_SSH_FOLDER"
+  ln -sfv "$VOLUME_SSH_FOLDER" "$CONTAINER_SSH_FOLDER"
+else
+  >&2 echo "$VOLUME_SSH_FOLDER not found!"
+  exit 1
+fi
