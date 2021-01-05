@@ -3,15 +3,14 @@ MAINTAINER "Huan <zixia@zixia.net>"
 LABEL maintainer="Huan <zixia@zixia.net>"
 LABEL org.opencontainers.image.source="https://github.com/zixia/bbs.zixia.net"
 
-# Huan(202101): ARG must after FROM, or it will lost in the context after FROM.
-ARG S6_OVERLAY_VERSION=1.22.1.0
-ARG S6_OVERLAY_MD5HASH=3060e2fdd92741ce38928150c0c0346a
-ARG PHP_INCLUDE='/usr/local/include/php'
-ARG CFLAGS='-O3 -g'
-
+# BBS SSH
+EXPOSE 22
+# BBS Telnt
+EXPOSE 23
+# BBS HTTP
+EXPOSE 80
+# BBS Shell SSH
 EXPOSE 2222
-EXPOSE 2323
-EXPOSE 8080
 
 # healthy check
 # HEALTHCHECK --interval=30s --timeout=5s CMD curl --fail http://localhost:80 || exit 1
@@ -41,6 +40,10 @@ RUN groupadd --gid 80 bbs \
   && echo "bbs ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
   && echo done
 
+# Huan(202101): ARG must after FROM, or it will lost in the context after FROM.
+ARG S6_OVERLAY_VERSION=1.22.1.0
+ARG S6_OVERLAY_MD5HASH=3060e2fdd92741ce38928150c0c0346a
+
 # S6 Overlay
 RUN curl -J -L -o /tmp/s6-overlay-amd64.tar.gz "https://github.com/just-containers/s6-overlay/releases/download/v$S6_OVERLAY_VERSION/s6-overlay-amd64.tar.gz" \
   && echo -n "Checking md5sum... " \
@@ -53,6 +56,8 @@ COPY --chown=bbs kbs_bbs/ /bbs/src/kbs_bbs
 WORKDIR /bbs
 USER bbs
 
+ARG PHP_INCLUDE='/usr/local/include/php'
+ARG CFLAGS='-O3 -g'
 RUN cd src/kbs_bbs \
   && ./autogen.sh \
   && (cd sshbbsd && ./autogen.sh) \
@@ -84,6 +89,6 @@ VOLUME /bbs
 
 USER root
 COPY bin/entrypoint.sh /
-COPY services.d/ /etc/services.d
+COPY root/ /
 COPY VERSION /
 ENTRYPOINT /entrypoint.sh

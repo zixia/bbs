@@ -2,6 +2,8 @@
 
 ![大话西游紫霞BBS](docs/images/zixia-bbs-login.png)
 
+For any questions and support request, please go to our GitHub discussion at <https://github.com/zixia/bbs.zixia.net/discussions>
+
 ## Features
 
 1. Full dockerized
@@ -31,10 +33,10 @@ Run zixia bbs by following the below docker command:
 docker run \
   --rm \
   -ti \
-  -p 2222:2222 \
-  -p 22222:22222 \
-  -p 2323:2323 \
-  -p 8080:8080 \
+  -p 2222:22 \
+  -p 22222:2222 \
+  -p 2323:23 \
+  -p 8080:80 \
   -v /data/bbs:/bbs \
   -e VIRTUAL_HOST=bbs.zixia.net,*.bbs.zixia.net,wforum.zixia.net,*.wforum.zixia.net \
   -e LETSENCRYPT_HOST=bbs.zixia.net,wforum.zixia.net \
@@ -42,7 +44,16 @@ docker run \
   ghcr.io/zixia/bbs.zixia.net
 ```
 
-> Replace the port(2222, 22222, 2323, 8080), volume(/data/bbs)), environment variables with your value to fit your settings.
+> Replace the above port(2222, 22222, 2323, 8080), volume(/data/bbs), and environment variables with your own value to fit your settings.
+
+### Default Ports
+
+In zixia bbs config, we have bbs ssh, bbs telnet, bbs web, and system ssh four ports.
+
+1. bbs ssh: 22
+1. bbs telnet: 23
+1. bbs web: 80
+1. bbs shell ssh: 2222
 
 ### BBS Home Data Volume
 
