@@ -33,10 +33,10 @@ Run zixia bbs by following the below docker command:
 docker run \
   --rm \
   -ti \
-  -p 2222:22 \
-  -p 22222:2222 \
-  -p 2323:23 \
-  -p 8080:80 \
+  -p 22:22 \
+  -p 2222:2222 \
+  -p 23:23 \
+  -p 80:80 \
   -v /data/bbs:/bbs \
   -e VIRTUAL_HOST=bbs.zixia.net,*.bbs.zixia.net,wforum.zixia.net,*.wforum.zixia.net \
   -e LETSENCRYPT_HOST=bbs.zixia.net,wforum.zixia.net \
@@ -78,6 +78,18 @@ luit -encoding GBK telnet bbs.zixia.net
 ### Web
 
 The web can be visited at <https://bbs.zixia.net>
+
+## Get a Shell
+
+When we need a shell inside the bbs system, you need to store your ssh pub key into `./ssh/authorized_keys` first, then you will be able to ssh with the account `bbs`.
+
+```sh
+ssh -p 2222 bbs@bbs.zixia.net
+```
+
+There is a user named `bbs` in our container and its home is `/bbs/`, which is our data volume.
+
+So we can just put your ssh pub key in `/bbs/.ssh/authorized_keys` file then you will be able to login.
 
 ## Screenshots
 

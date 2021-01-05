@@ -31,6 +31,7 @@ RUN apt-get update \
 RUN groupadd --gid 80 bbs \
   && useradd \
     --home-dir /bbs \
+    --shell /bin/bash \
     --gid 80 \
     --uid 80 \
     bbs \

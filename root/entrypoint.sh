@@ -8,7 +8,7 @@ BBS_DATA='/bbs'
 # check if bbs volume is mounted
 if [[ ! -f "$BBS_DATA"/.PASSWDS ]]; then
   echo 'BBS home volume is not mounted, plz mount it first'
-  echo 'use `-v /data/bbs:/bbs`'
+  echo "use `-v /data/bbs:$BBS_DATA`"
   exit 1
 fi
 

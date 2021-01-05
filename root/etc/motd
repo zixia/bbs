@@ -1,8 +1,15 @@
+___________________________________________________________________
+
 Welcome to Zixia BBS Server!
 
-This system is run as a Docker container, you can learn it more from <https://github.com/zixia/bbs.zixia.net>
+This system is run as a Docker container,
+you can learn it more from source code at
+https://github.com/zixia/bbs.zixia.net
 
-Any qustions and support, please feel free to post at <https://github.com/zixia/bbs.zixia.net/discussions>
+Please feel free to post at
+https://github.com/zixia/bbs.zixia.net/discussions
+if you have any qustions.
 
 Huan <zixia@zixia.net>
 Jan 5, 2021
+___________________________________________________________________
