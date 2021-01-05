@@ -2,33 +2,37 @@
 
 ![大话西游紫霞BBS](docs/images/zixia-bbs-login.png)
 
+## Features
+
+1. Full dockerized
+1. DevOps ready
+1. BBS Home as a Data Volume
+
 ## Requirements
 
 1. Docker
 
-## Installation
+## Build
 
-Learn how to build from `kbs_bbs` source for zixia bbs from the [Dockerfile](Dockerfile)
-
-### install-home
-
-If you are starting `kbs_bbs` from scratch for the first time, you need to initialize `bbshome/` so that your system can be started correctly.
-
-> WARNING: all your existing bbs data will lost after this operation!
+> Learn how to build from `kbs_bbs` source for zixia bbs from the [Dockerfile](Dockerfile)
 
 ```sh
-make install-home
+git clone https://github.com/zixia/bbs.zixia.net.git
+cd bbs.zixia.net
+
+docker build -t bbs.zixia.net .
 ```
 
-## Usage
+## Run
 
-Run zixia bbs docker with the following docker command:
+Run zixia bbs by following the below docker command:
 
 ```sh
 docker run \
   --rm \
   -ti \
   -p 2222:2222 \
+  -p 22222:22222 \
   -p 2323:2323 \
   -p 8080:8080 \
   -v /data/bbs:/bbs \
@@ -38,7 +42,15 @@ docker run \
   ghcr.io/zixia/bbs.zixia.net
 ```
 
-> Replace the port(2222, 2323, 8080), volume(/data/bbs)), environment variables with your value to fit your settings.
+> Replace the port(2222, 22222, 2323, 8080), volume(/data/bbs)), environment variables with your value to fit your settings.
+
+### BBS Home Data Volume
+
+We use `/bbs/` as the BBSHOME in our docker container.
+
+When we start the bbs container, we need to mount the data volume for the `/bbs/` to our docker container so that it can be read correctly.
+
+For example, the args `-v /data/bbs:/bbs` will mount the local `/data/bbs` folder (which contains the zixia bbs home data) to the in container `/bbs` mount point.
 
 ### Term
 
@@ -54,7 +66,7 @@ luit -encoding GBK telnet bbs.zixia.net
 
 ### Web
 
-And the web can be visited at <https://bbs.zixia.net>
+The web can be visited at <https://bbs.zixia.net>
 
 ## Screenshots
 
@@ -90,7 +102,7 @@ New server online! (Thanks my good friend zxcvb for helping me to buy and setup 
 
 1. server configuratrion checklist table: ([link](docs/images/zixia-server-2006.webp))
 
-### v1.0 (1999)
+### v0.1 (1999)
 
 大话西游 zixia bbs landed!
 
