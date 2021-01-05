@@ -80,6 +80,12 @@
 #define LIFE_DAY_NEW		30	//15
 #define LIFE_DAY_SUICIDE	15	//15
 
+/**
+ * Huan(202101): do not delete user when their life less than 0
+ */
+#define	SAVELIVE
+
+
 #define DAY_DELETED_CLEAN	97	//20
 #define SEC_DELETED_OLDHOME	0 	/*  3600*24*30，注册新用户如果存在这个用户的目录，保留时间*/
 
