@@ -6,33 +6,19 @@
 
 set -e
 
-if [[ $(id -u) = 0 ]]; then
-  exec s6-setuidgid bbs $0 "$@"
-fi
-
-while true; do
-  echo 'bbsd service mock'
-  sleep 60
-done
-
-KBS='/kbs'
+#
+# We have initialized all bbs daemons at /etc/cont-init.d/10-daemons
+#   includes: miscd, bbslogd, bbsd, sshbbsd
+#
 
 function sigterm_handler () {
   echo "SIGTERM signal received, try to gracefully shutdown all services..."
-  $KBS/bin/miscd flush
+  /kbs/bin/miscd flush
 }
 
 trap "sigterm_handler; exit" TERM
 
-"$KBS"/bin/miscd daemon
-"$KBS"/bin/bbslogd
-"$KBS"/bin/bbsd -p 2323
-"$KBS"/bin/sshbbsd -p 2222
-
 # flush the miscd every hour
 while sleep 3600; do
-  "$KBS"/bin/miscd flush
+  /kbs/bin/miscd flush
 done
-
-# Wait for SIGTERM
-wait

@@ -7,9 +7,9 @@
 
 set -e
 
-if [[ $(id -u) = 0 ]]; then
-  exec s6-setuidgid bbs $0 "$@"
-fi
+# if [[ $(id -u) = 0 ]]; then
+#   exec s6-setuidgid bbs $0 "$@"
+# fi
 
 while true; do
   echo 'apachectl service mock'
@@ -17,4 +17,3 @@ while true; do
 done
 
 apachectl -D FOREGROUND
-

@@ -1,0 +1,10 @@
+#!/usr/bin/with-contenv bash
+
+set -e
+
+echo 'Starting bbs damons...'
+/kbs/bin/miscd daemon
+/kbs/bin/bbslogd
+/kbs/bin/bbsd -p 23
+/kbs/bin/sshbbsd -p 22
+echo 'Starting bbs damons: done'
