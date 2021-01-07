@@ -4,6 +4,7 @@ set -e
 set -o pipefail
 
 docker run \
+  --name bbs.zixia.net \
   --rm \
   -ti \
   -p 2222:22 \
@@ -14,7 +15,7 @@ docker run \
   -e VIRTUAL_HOST=bbs.zixia.net,*.bbs.zixia.net,wforum.zixia.net,*.wforum.zixia.net \
   -e LETSENCRYPT_HOST=bbs.zixia.net,wforum.zixia.net \
   -e HTTPS_METHOD=noredirect \
-  --entrypoint bash \
-  bbs.zixia.net
+  ghcr.io/zixia/bbs.zixia.net
+  # --entrypoint bash \
+  # bbs.zixia.net
 
-  #ghcr.io/zixia/bbs.zixia.net

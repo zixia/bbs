@@ -42,7 +42,7 @@
 
 #undef SITE_HIGHCOLOR
 
-#define IDLE_TIMEOUT    (60*20) 
+#define IDLE_TIMEOUT    (60*20)
 
 #define BBSUID 			80//9999
 #define BBSGID 			80//99
@@ -98,10 +98,10 @@
 #define NAME_BBS_ENGLISH	"bbs.zixia.net" //smth.org
 #define	NAME_BBS_CHINESE	"大话西游" //水木清华
 #define NAME_BBS_NICK		"斧头帮" // BBS 站
-#define BBS_FULL_NAME		"BBS 大话西游斧头帮 - 紫霞论坛"
+#define BBS_FULL_NAME		"大话西游斧头帮 - 紫霞BBS"
 
 #define FOOTER_MOVIE		"  斧  头  帮  " // 欢  迎  投  稿
-#define ISSUE_LOGIN		"本站使用一台X86服务器" //本站使用曙光公司曙光天演服务器
+#define ISSUE_LOGIN		"本站运行在 Azure Cloud 的 Docker 中" //本站使用曙光公司曙光天演服务器
 #define ISSUE_LOGOUT		"般若波羅密！" //还是走了罗
 
 #define NAME_USER_SHORT		"斧头帮众" //用户
