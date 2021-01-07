@@ -52,18 +52,25 @@ jobs:
       - name: Log into registry
         run: echo "${{ secrets.CR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Push image
+      - name: Push image to ghcr.io
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository }}
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "main" ] && VERSION=latest
+          IMAGE_ID=$(./scripts/image_id.sh ${{ github.repository }})
+          VERSION=`cat VERSION`
+          BRANCH=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+
+          read VERSION_TAG BRANCH_TAG <<< $(./scripts/image_tag.sh $VERSION $BRANCH)
+
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
+          echo VERSION_TAG=$VERSION_TAG
+          echo BRANCH_TAG=$BRANCH_TAG
+
+          IMAGE_TAG_VERSION=$IMAGE_ID:$VERSION_TAG
+          docker tag $IMAGE_NAME $IMAGE_TAG_VERSION
+          docker push $IMAGE_TAG_VERSION
+
+          if [ -n "$BRANCH_TAG" ]; then
+            IMAGE_TAG_BRANCH=$IMAGE_ID:$BRANCH_TAG
+            docker tag $IMAGE_NAME $IMAGE_TAG_BRANCH
+            docker push $IMAGE_TAG_BRANCH
+          fi
