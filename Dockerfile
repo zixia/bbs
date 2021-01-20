@@ -18,9 +18,11 @@ EXPOSE 2222
 RUN apt-get update \
   && apt-get install -y --force-yes \
     apache2 \
+    gdb \
     libgmp3-dev \
-    openssh-server \
+    locales \
     openssh-client \
+    openssh-server \
     openssl \
     sendmail \
     sudo \
