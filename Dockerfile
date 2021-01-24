@@ -19,11 +19,13 @@ RUN apt-get update \
   && apt-get install -y --force-yes \
     apache2 \
     gdb \
+    jq \
     libgmp3-dev \
     locales \
     openssh-client \
     openssh-server \
     openssl \
+    screen \
     sendmail \
     sudo \
     telnet \
