@@ -43,6 +43,8 @@ RUN groupadd --gid 80 bbs \
     && chown -R bbs.bbs /bbs /kbs /var/www \
     && chmod 700 /bbs /kbs \
   && echo "bbs ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
+  && localedef -v -c -i en_US -f UTF-8 en_US.UTF-8 \
+  && localedef -v -c -i zh_CN -f GBK zh_CN.GBK \
   && echo done
 
 # Huan(202101): ARG must after FROM, or it will lost in the context after FROM.
