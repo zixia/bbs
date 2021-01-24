@@ -43,7 +43,7 @@ RUN groupadd --gid 80 bbs \
     && chown -R bbs.bbs /bbs /kbs /var/www \
     && chmod 700 /bbs /kbs \
   && echo "bbs ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
-  && sed -i '/zh_CM.GBK/s/^# //' /etc/locale.gen \
+  && sed -i '/zh_CN.GBK/s/^# //' /etc/locale.gen \
   && sed -i '/en_US.UTF/s/^# //' /etc/locale.gen \
   && locale-gen \
   && echo done
