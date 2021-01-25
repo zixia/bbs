@@ -27,6 +27,7 @@ RUN apt-get update \
     openssl \
     screen \
     sendmail \
+    strace \
     sudo \
     telnet \
     vim \
