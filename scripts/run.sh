@@ -7,6 +7,8 @@ docker run \
   --name bbs.zixia.net \
   --rm \
   -ti \
+  --cap-add=SYS_PTRACE \
+  --security-opt apparmor=unconfined \
   -p 2222:22 \
   -p 22222:2222 \
   -p 2323:23 \
