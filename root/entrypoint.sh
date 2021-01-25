@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 #
+# https://github.com/zixia/bbs.zixia.net
+#
 # Author: Huan <zixia@zixia.net>
-#   Jan 2021
+# Date:   Jan 2021
+#
 
 BBS_DATA='/bbs'
 
