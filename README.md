@@ -99,7 +99,21 @@ So we can just put your ssh pub key in `/bbs/.ssh/authorized_keys` file then you
 
 ![大话西游紫霞BBS](docs/images/zixia-bbs-elite.png)
 
+## Cloud ($)
+
+The bbs.zixia.net is currently hosted on [Microsoft Azure Cloud](https://azure.com) at [Asia Southeast Region](https://azure.microsoft.com/en-us/global-infrastructure/geographies/)
+
+| Resource | Size | $ per month |
+| ---: | :--- | :--- |
+| [Managed Disk](https://azure.microsoft.com/en-us/pricing/details/managed-disks/) | 256 GB (HDD, IOPS500, 60MB/s) | $11.33 |
+| [Virtual Machine](https://docs.microsoft.com/en-us/azure/virtual-machines/sizes) | 2 GB Ram, 1 vCPU (Standard_B1ms) | $19.27 |
+| Total | : | $30.6 |
+
 ## History
+
+### v21 Jan 25, 2021
+
+The <telnet://bbs.zixia.net> has been fully dockerized & cloudified on Azure Cloud!
 
 ### v20 Dec 30, 2020
 
