@@ -125,7 +125,9 @@ Mainboard failure: The system can not boot until I bring it to Zhongguancun and 
 
 New server online! (Thanks my good friend zxcvb for helping me to buy and setup this server!)
 
-1. server configuratrion checklist table: ([link](docs/images/zixia-server-2006.webp))
+![zixia bbs server 2006](docs/images/zixia-server-2006-term.png)
+
+> server configuratrion checklist table: ([link](docs/images/zixia-server-2006.webp))
 
 ### v0.1 (1999)
 
