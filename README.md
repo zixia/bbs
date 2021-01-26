@@ -2,7 +2,7 @@
 
 - README: <https://www.zixia.net/bbs.zixia.net>
 - GitHub: <https://github.com/zixia/bbs.zixia.net>
-- Term: <telnet://bbs.zixia.net>
+- Term: <a href="telnet://bbs.zixia.net">telnet://bbs.zixia.net</a>
 
 ![大话西游紫霞BBS](docs/images/zixia-bbs-login.png)
 
