@@ -147,7 +147,7 @@ New server online! (Thanks my good friend zxcvb for helping me to buy and setup 
 
 > server configuratrion checklist table: ([link](docs/images/zixia-server-2006.webp))
 
-### v0.1 (1999)
+### v1 (2001)
 
 大话西游 zixia bbs landed!
 
@@ -220,7 +220,7 @@ The zixia BBS source code is heavily based on the kbs_bbs system, I can always g
 
 ## Copyright & License
 
-- Code & Docs © 1999-2021 zixia.net
+- Code & Docs © 1998-2021 zixia.net
 - Code released under the GPLv3
 - Docs released under Creative Commons
 
