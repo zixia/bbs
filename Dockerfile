@@ -1,7 +1,7 @@
 FROM php:5.3
 MAINTAINER "Huan <zixia@zixia.net>"
 LABEL maintainer="Huan <zixia@zixia.net>"
-LABEL org.opencontainers.image.source="https://github.com/zixia/bbs.zixia.net"
+LABEL org.opencontainers.image.source="https://github.com/zixia/bbs"
 
 # BBS SSH
 EXPOSE 22

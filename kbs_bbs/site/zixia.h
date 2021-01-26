@@ -82,7 +82,7 @@
 
 /**
  * Huan(202101): do not delete user when their life less than 0
- *  https://github.com/zixia/bbs.zixia.net/issues/3
+ *  https://github.com/zixia/bbs/issues/3
  */
 #define	SAVELIVE
 

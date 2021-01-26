@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# https://github.com/zixia/bbs.zixia.net
+# https://github.com/zixia/bbs
 #
 # Author: Huan <zixia@zixia.net>
 # Date:   Jan 2021

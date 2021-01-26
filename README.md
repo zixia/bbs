@@ -1,14 +1,14 @@
 # 大话西游 zixia BBS
 
-- README: <https://www.zixia.net/bbs.zixia.net>
-- GitHub: <https://github.com/zixia/bbs.zixia.net>
+- README: <https://www.zixia.net/bbs>
+- GitHub: <https://github.com/zixia/bbs>
 - Term: <a href="telnet://bbs.zixia.net">telnet://bbs.zixia.net</a>
 
 ![大话西游紫霞BBS](docs/images/zixia-bbs-login.png)
 
 zixia BBS is a famouse BBS ([Bulletin Board System](https://en.wikipedia.org/wiki/Bulletin_board_system)) in Tsinghua university founded in 1998, created by Huan who's id is `zixia`. The zixia BBS is built on top of the source code of the largest campus BBS [水木清华BBS/水木社区](https://newsmth.net): [KBS_BBS](http://kcn.cn/) system, maintained by [KCN](http://kcn.cn).
 
-For any questions and support request, please go to our GitHub discussion at <https://github.com/zixia/bbs.zixia.net/discussions>
+For any questions and support request, please go to our GitHub discussion at <https://github.com/zixia/bbs/discussions>
 
 ## Features
 
@@ -25,10 +25,10 @@ For any questions and support request, please go to our GitHub discussion at <ht
 > Learn how to build from `kbs_bbs` source for zixia bbs from the [Dockerfile](Dockerfile)
 
 ```sh
-git clone https://github.com/zixia/bbs.zixia.net.git
-cd bbs.zixia.net
+git clone https://github.com/zixia/bbs.git
+cd bbs
 
-docker build -t bbs.zixia.net .
+docker build -t bbs .
 ```
 
 ## Run
@@ -47,7 +47,7 @@ docker run \
   -e VIRTUAL_HOST=bbs.zixia.net,*.bbs.zixia.net,wforum.zixia.net,*.wforum.zixia.net \
   -e LETSENCRYPT_HOST=bbs.zixia.net,wforum.zixia.net \
   -e HTTPS_METHOD=noredirect \
-  ghcr.io/zixia/bbs.zixia.net
+  ghcr.io/zixia/bbs
 ```
 
 > Replace the above port(2222, 22222, 2323, 8080), volume(/data/bbs), and environment variables with your own value to fit your settings.
@@ -74,7 +74,7 @@ For example, the args `-v /data/bbs:/bbs` will mount the local `/data/bbs` folde
 The KBS sytem is using GBK for encoding so we need to use `luit` to convert GBK to UTF8
 
 ```sh
-luit -encoding GBK ssh zixia@bbs.zixia.net
+luit -encoding GBK ssh guest@bbs.zixia.net
 
 # or
 
@@ -117,7 +117,7 @@ The bbs.zixia.net is currently hosted on [Microsoft Azure Cloud](https://azure.c
 
 ### v21 Jan 25, 2021
 
-The <telnet://bbs.zixia.net> has been fully dockerized & cloudified on Azure Cloud!
+The `telnet://bbs.zixia.net` has been fully dockerized & cloudified on Azure Cloud!
 
 ### v20 Dec 30, 2020
 

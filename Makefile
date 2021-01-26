@@ -7,7 +7,7 @@ test:
 
 .PHONY: build
 build:
-	docker build -t bbs.zixia.net .
+	docker build -t bbs .
 
 .PHONY: run
 run:
@@ -15,11 +15,11 @@ run:
 
 .PHONY: pull
 pull:
-	docker pull ghcr.io/zixia/bbs.zixia.net
+	docker pull ghcr.io/zixia/bbs
 
 .PHONY: clean
 clean:
-	docker rmi bbs.zixia.net
+	docker rmi bbs
 
 .PHONY: version
 version:

@@ -3,7 +3,7 @@
 set -e
 set -o pipefail
 
-# https://github.com/zixia/bbs.zixia.net/issues/12
+# https://github.com/zixia/bbs/issues/12
 GDB_OPTIONS=\
   --cap-add=SYS_PTRACE \
   --security-opt apparmor=unconfined \
@@ -25,9 +25,9 @@ docker run \
   $GDB_OPTIONS \
   $PORT_OPTIONS \
   $ENV_OPTIONS \
-  --name bbs.zixia.net \
+  --name bbs \
   -v /data/bbs:/bbs \
-  ghcr.io/zixia/bbs.zixia.net
+  ghcr.io/zixia/bbs
   # --entrypoint bash \
   # bbs.zixia.net
 
