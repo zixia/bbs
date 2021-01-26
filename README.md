@@ -153,7 +153,7 @@ New server online! (Thanks my good friend zxcvb for helping me to buy and setup 
 
 If you are interested in the place where I built the zixia bbs, luckly there's a Linux story telling documentary film [The Code](https://www.imdb.com/title/tt0315417/) shot in 2001, which contains [10 seconds video](https://youtu.be/zPt_e9Cdk08?t=2910) on YouTube shows my "office" in student dorm building 28, Tsinghua University. This place is also the "IDC" of where zixia bbs was hosted.
 
-![zixia dorm 2001](docs/images/the-code-2001-zixia.webp)
+[![zixia dorm 2001](docs/images/the-code-2001-zixia.webp)](https://youtu.be/zPt_e9Cdk08?t=2910)
 
  > **The Code** is a Linux documentary from Finland made in 2001 on the birth of Linux and the open source community.
 
