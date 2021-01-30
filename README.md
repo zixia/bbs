@@ -1,12 +1,14 @@
-# 大话西游 zixia BBS
+# 大话西游BBS
+
+![大话西游BBS](docs/images/zixia-bbs-login.png)
+
+zixia BBS is a famouse BBS ([Bulletin Board System](https://en.wikipedia.org/wiki/Bulletin_board_system)) in Tsinghua university founded in 1998, created by Huan who's id is `zixia`. The zixia BBS is built on top of the source code of the largest campus BBS [水木清华BBS/水木社区](https://newsmth.net): [KBS_BBS](http://kcn.cn/) system, maintained by [KCN](http://kcn.cn).
 
 - README: <https://www.zixia.net/bbs>
 - GitHub: <https://github.com/zixia/bbs>
 - Term: <a href="telnet://bbs.zixia.net">telnet://bbs.zixia.net</a>
-
-![大话西游紫霞BBS](docs/images/zixia-bbs-login.png)
-
-zixia BBS is a famouse BBS ([Bulletin Board System](https://en.wikipedia.org/wiki/Bulletin_board_system)) in Tsinghua university founded in 1998, created by Huan who's id is `zixia`. The zixia BBS is built on top of the source code of the largest campus BBS [水木清华BBS/水木社区](https://newsmth.net): [KBS_BBS](http://kcn.cn/) system, maintained by [KCN](http://kcn.cn).
+- Official Name: _大话西游 BBS_ / _紫霞BBS_
+- WikiPedia: <https://zh.wikipedia.org/wiki/大话西游BBS>
 
 For any questions and support request, please go to our GitHub discussion at <https://github.com/zixia/bbs/discussions>
 
