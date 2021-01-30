@@ -7,7 +7,7 @@ zixia BBS is a famouse BBS ([Bulletin Board System](https://en.wikipedia.org/wik
 - README: <https://www.zixia.net/bbs>
 - GitHub: <https://github.com/zixia/bbs>
 - Term: <a href="telnet://bbs.zixia.net">telnet://bbs.zixia.net</a>
-- Official Name: _大话西游 BBS_ (A.K.A. _紫霞BBS_)
+- Official Name: _大话西游 BBS_ (a.k.a. _紫霞BBS_)
 - WikiPedia: <https://zh.wikipedia.org/wiki/大话西游BBS>
 
 For any questions and support request, please go to our GitHub discussion at <https://github.com/zixia/bbs/discussions>
